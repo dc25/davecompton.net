@@ -19,7 +19,7 @@
 github_comments_repository:  dc25/myBlog-comments
 
 # Set this to a github repository to be used to host comments.
-# github_comments_repository:  githubId/repositoryName
+github_comments_repository:  dc25/myBlog-comments
 
 # Build settings
 # --------------
