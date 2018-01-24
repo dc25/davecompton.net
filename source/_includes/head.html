@@ -8,5 +8,12 @@
 
   <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+  <script type="text/javascript">
+if (("{{ site.url | remove_first: "https://" }}" === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location = window.location.toString().replace(/^http:/, "https:");
+} else if ("www." + "{{ site.url | remove_first: "https://" }}" === window.location.host) {
+        window.location = window.location.toString().replace(/^(http|https):\/\/www\./, "https://");
+    }
+  </script>
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}">
 </head>
