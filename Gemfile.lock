@@ -30,6 +30,7 @@ GEM
     pathutil (0.14.0)
       forwardable-extended (~> 2.6)
     public_suffix (2.0.5)
+    rake (12.3.0)
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
@@ -42,10 +43,11 @@ PLATFORMS
 
 DEPENDENCIES
   jekyll (= 3.4.0)
+  rake
   tzinfo-data
 
 RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.13.6
+   1.16.0
