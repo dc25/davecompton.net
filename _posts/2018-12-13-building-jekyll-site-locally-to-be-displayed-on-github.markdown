@@ -3,7 +3,7 @@ layout: post
 title: "Building Jekyll site locally to be displayed on Github"
 date: 2018-12-13 22:50:01 +0000
 published: true
-github_comments_issueid: "6"
+github_comments_issueid: "7"
 tags: Jekyll
 ---
 
@@ -13,7 +13,7 @@ If you publish a Jekyll based website on Github they will do the Jekyll compile 
 * Other web hosting sites will not support automated Jekyll builds in the same way.  If you want to compare sites you may need to do a local build anyway.
 * Github does not provide automated builds for static site generators other than Jekyll.  Knowing how to push a local build lends itself to working with those other static site generators.
 
-Here's a script that provides some help in pushing a local build to the gh-pages branch for a repository.  It's not very polished - uses will need to edit it to specify the correct baseurl for the jekyll build.  
+Here's a script that provides some help in pushing a local build to the gh-pages branch for a repository.  It's not very polished - users will need to edit it to specify the correct baseurl for the jekyll build.  
 
 	#! /bin/bash
 
