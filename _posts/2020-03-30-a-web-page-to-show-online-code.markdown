@@ -20,13 +20,13 @@ So, for example, clicking on this link ...  <a id="urllink" href=""></a> ... wil
 
 Or (more usefully) the web page can be embedded in another page using an iframe:
 
-<iframe id="showCode" style="width:100%; height:390px" src='' ></iframe>
+<iframe id="showCode" style="width:100%; height:450px" src='' ></iframe>
 
 Up to this point, the example code that I have been using is the typescript code used to fetch and display online code.
 
 Below is the markdown used to create this page (the prettifier seems to have some trouble with markdown):
 
-<iframe id="showPage" style="width:100%; height:750px" src='' ></iframe>
+<iframe id="showPage" style="width:100%; height:800px" src='' ></iframe>
 
 <script> 
     function showCode(t)
