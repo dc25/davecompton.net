@@ -16,7 +16,8 @@ To make this work, I created a webpage that would retrieve the content of the ur
 
 The code displayed will be highlighted using [code prettify by google](https://github.com/google/code-prettify).
 
-So, for example, clicking on this link ...  <a id="urllink" href=""></a> ... will bring up the page showing the code of interest.
+So, for example, clicking on this link ...  <a id="urllink" href=""></a> ... will bring up the page showing the code at the encoded URL.
+
 
 Or (more usefully) the web page can be embedded in another page using an iframe:
 
@@ -43,10 +44,11 @@ Below is the markdown used to create this page (the prettifier seems to have som
 </div>
 
 <script> 
-    function showCodeURL(t)
+
+    // Return the URL that will display the code found at the URL argument
+    function showCodeURL(codeUrl)
     {
-        // return "https://dc25.github.io/showCode?codeURL=" + encodeURIComponent(t);
-        return "http://172.17.0.3:8000?codeURL=" + encodeURIComponent(t);
+        return "https://dc25.github.io/showCode?codeURL=" + encodeURIComponent(codeUrl);
     }
 
     // Embed (in this page) code hosted elsewhere on the web 
