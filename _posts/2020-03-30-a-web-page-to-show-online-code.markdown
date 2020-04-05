@@ -20,25 +20,67 @@ So, for example, clicking on this link ...  <a id="urllink" href=""></a> ... wil
 
 Or (more usefully) the web page can be embedded in another page using an iframe:
 
-<iframe id="showCode" style="width:100%; height:450px" src='' ></iframe>
+<div id="showCode" class="code-container">
+  <iframe class="code-text" src='' ></iframe>
+  <hr>
+  <div class="code-bar">
+    <a href="" class="code-link"></a>
+    <a href="" class="code-raw-link">view raw</a>
+  </div>
+</div>
 
-Up to this point, the example code that I have been using is the typescript code used to fetch and display online code.
+So far, the example code that I have been using is the typescript code used to fetch and display online code.
 
 Below is the markdown used to create this page (the prettifier seems to have some trouble with markdown):
 
-<iframe id="showPage" style="width:100%; height:800px" src='' ></iframe>
+<div id="showPage" class="code-container" style="height:800px">
+  <iframe class="code-text" src='' ></iframe>
+  <hr>
+  <div class="code-bar">
+    <a href="" class="code-link"></a>
+    <a href="" class="code-raw-link">view raw</a>
+  </div>
+</div>
 
 <script> 
-    function showCode(t)
+    function showCodeURL(t)
     {
-        return "https://dc25.github.io/showCode?codeURL=" + encodeURIComponent(t);
+        // return "https://dc25.github.io/showCode?codeURL=" + encodeURIComponent(t);
+        return "http://172.17.0.3:8000?codeURL=" + encodeURIComponent(t);
+    }
+
+    // Embed (in this page) code hosted elsewhere on the web 
+    // Expects to find a bit of html that is tagged by "id"
+    // Other than the "id" tag, the html is boilerplate.
+    function embedCode(id, name, rawURL, sourceURL)
+    {
+        let codeContainer = document.getElementById(id);
+        let codeText = codeContainer.getElementsByClassName("code-text")[0];
+        codeText.src = showCodeURL(rawURL);
+
+        let codeBar = codeContainer.getElementsByClassName("code-bar")[0];
+        let codeRawLink = codeBar.getElementsByClassName("code-raw-link")[0];
+        codeRawLink.href = rawURL;
+
+        let codeLink = codeBar.getElementsByClassName("code-link")[0];
+        codeLink.innerHTML = name;
+        codeLink.href = sourceURL;
     }
 
     let code = "https://raw.githubusercontent.com/dc25/showCode/master/show.ts";
 
-    let page = "https://raw.githubusercontent.com/dc25/davecompton.net/master/_posts/2020-03-30-a-web-page-to-show-online-code.markdown";
-    document.getElementById("urllink").innerHTML=showCode(code);
-    document.getElementById("urllink").href=showCode(code);
-    document.getElementById("showCode").src=showCode(code);
-    document.getElementById("showPage").src=showCode(page);
+    document.getElementById("urllink").innerHTML=showCodeURL(code);
+    document.getElementById("urllink").href=showCodeURL(code);
+
+    embedCode("showCode"
+             ,"show.ts"
+             ,"https://raw.githubusercontent.com/dc25/showCode/master/show.ts"
+             ,"https://github.com/dc25/showCode/blob/master/show.ts"
+             );
+
+    embedCode("showPage"
+             ,"2020-03-30-a-web-page-to-show-online-code.markdown"
+             ,"https://raw.githubusercontent.com/dc25/davecompton.net/master/_posts/2020-03-30-a-web-page-to-show-online-code.markdown"
+             ,"https://github.com/dc25/davecompton.net/blob/master/_posts/2020-03-30-a-web-page-to-show-online-code.markdown"  
+             );
 </script>

@@ -1,0 +1,28 @@
+.code-container {
+  display: flex; 
+  width: 100%; 
+  height: 450px; 
+  flex-direction: column; 
+  overflow: hidden;
+  border-style: solid;
+}
+
+.code-bar {
+  background-color: #dfdfdf;
+  padding: 10px;
+}
+
+.code-raw-link {
+  float: right;
+}
+
+.code-link {
+}
+
+.code-text { 
+  background-color: #efefef;
+  flex-grow: 1; 
+  border: none; 
+  margin: 0; 
+  padding: 0; 
+}
