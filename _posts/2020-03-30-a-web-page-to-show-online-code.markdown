@@ -26,10 +26,8 @@ Or (more usefully) the web page can be embedded in another page using an iframe.
     <a href="" class="code-raw-link">view raw</a>
   </div>
 </div>
-
-
+<br>
 Below is the markdown used to create this page (the prettifier seems to have some trouble with markdown).  This includes the javascript that helps set up the content on this page.
-
 <div id="showPage" class="code-container" style="height:1400px">
   <iframe class="code-text" src='' ></iframe>
   <hr>
@@ -38,7 +36,7 @@ Below is the markdown used to create this page (the prettifier seems to have som
     <a href="" class="code-raw-link">view raw</a>
   </div>
 </div>
-
+<br>
 And here is the scss that is used to style the code display on this page.
 <div id="showScss" class="code-container" style="height:500px">
   <iframe class="code-text" src='' ></iframe>
@@ -48,7 +46,6 @@ And here is the scss that is used to style the code display on this page.
     <a href="" class="code-raw-link">view raw</a>
   </div>
 </div>
-
 <script> 
 
     // Return the URL that will display the code found at the URL argument
