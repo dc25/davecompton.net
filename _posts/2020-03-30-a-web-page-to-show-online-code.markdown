@@ -14,84 +14,32 @@ To make this work, I created a webpage that would retrieve the content of the ur
 
 The code displayed will be highlighted using [code prettify by google](https://github.com/google/code-prettify).
 
-So, for example, clicking on this link ...  <a id="urllink" href=""></a> ... will bring up the page showing the code at the encoded URL.
+{% capture display-code %}
+https://dc25.github.io/showCode?codeURL={{ "https://raw.githubusercontent.com/dc25/showCode/master/show.ts" | url_encode }}
+{% endcapture %}
 
-Or (more usefully) the web page can be embedded in another page using an iframe.   I'm using a little javascript and css to help with setting up the content and style but, strictly speaking, that's not necessary.  The code displayed below is the typescript code that the showCode site uses to fetch and display online code.
+So, for example, clicking on this link ...  <a href="{{display-code}}">{{display-code}}</a> will bring up a page showing typescript code that the showCode site uses to fetch and display online code.
 
-<div id="showCode" class="code-container">
-  <iframe class="code-text" src='' ></iframe>
-  <hr>
-  <div class="code-bar">
-    <a href="" class="code-link"></a>
-    <a href="" class="code-raw-link">view raw</a>
-  </div>
-</div>
-<br>
+Or the same web page can be embedded in another page using an iframe.   I'm using a little html and css to help with setting up the content and style but, strictly speaking, that's not necessary.  
+
+{% include iframecode.html 
+              title=      "show.ts"
+              source-url= "https://github.com/dc25/showCode/blob/master/show.ts"
+              raw-url=    "https://raw.githubusercontent.com/dc25/showCode/master/show.ts"
+              height=     "460px" %}
+
 Below is the markdown used to create this page (the prettifier seems to have some trouble with markdown).  This includes the javascript that helps set up the content on this page.
-<div id="showPage" class="code-container" style="height:1400px">
-  <iframe class="code-text" src='' ></iframe>
-  <hr>
-  <div class="code-bar">
-    <a href="" class="code-link"></a>
-    <a href="" class="code-raw-link">view raw</a>
-  </div>
-</div>
-<br>
-And here is the scss that is used to style the code display on this page.
-<div id="showScss" class="code-container" style="height:500px">
-  <iframe class="code-text" src='' ></iframe>
-  <hr>
-  <div class="code-bar">
-    <a href="" class="code-link"></a>
-    <a href="" class="code-raw-link">view raw</a>
-  </div>
-</div>
-<script> 
 
-    // Return the URL that will display the code found at the URL argument
-    function showCodeURL(codeUrl)
-    {
-        return "https://dc25.github.io/showCode?codeURL=" + encodeURIComponent(codeUrl);
-    }
+{% include iframecode.html 
+              title=      "2020-03-30-a-web-page-to-show-online-code.markdown"
+              source-url= "https://github.com/dc25/davecompton.net/blob/master/_posts/2020-03-30-a-web-page-to-show-online-code.markdown"
+              raw-url=    "https://raw.githubusercontent.com/dc25/davecompton.net/master/_posts/2020-03-30-a-web-page-to-show-online-code.markdown"
+              height=     "860px" %}
 
-    // Embed (in this page) code hosted elsewhere on the web 
-    // Expects to find a bit of html that is tagged by "id"
-    // Other than the "id" tag, the html is boilerplate.
-    function embedCode(id, name, rawURL, sourceURL)
-    {
-        let codeContainer = document.getElementById(id);
-        let codeText = codeContainer.getElementsByClassName("code-text")[0];
-        codeText.src = showCodeURL(rawURL);
+And here is the scss that is used to style the code displayed on this page.
+{% include iframecode.html 
+              title=      "_iframecode.scss" 
+              source-url= "https://github.com/dc25/davecompton.net/blob/master/_sass/_iframecode.scss" 
+              raw-url=    "https://raw.githubusercontent.com/dc25/davecompton.net/master/_sass/_iframecode.scss" 
+              height=     "500px" %}
 
-        let codeBar = codeContainer.getElementsByClassName("code-bar")[0];
-        let codeRawLink = codeBar.getElementsByClassName("code-raw-link")[0];
-        codeRawLink.href = rawURL;
-
-        let codeLink = codeBar.getElementsByClassName("code-link")[0];
-        codeLink.innerHTML = name;
-        codeLink.href = sourceURL;
-    }
-
-    let code = "https://raw.githubusercontent.com/dc25/showCode/master/show.ts";
-
-    document.getElementById("urllink").innerHTML=showCodeURL(code);
-    document.getElementById("urllink").href=showCodeURL(code);
-
-    embedCode("showCode"
-             ,"show.ts"
-             ,"https://raw.githubusercontent.com/dc25/showCode/master/show.ts"
-             ,"https://github.com/dc25/showCode/blob/master/show.ts"
-             );
-
-    embedCode("showPage"
-             ,"2020-03-30-a-web-page-to-show-online-code.markdown"
-             ,"https://raw.githubusercontent.com/dc25/davecompton.net/master/_posts/2020-03-30-a-web-page-to-show-online-code.markdown"
-             ,"https://github.com/dc25/davecompton.net/blob/master/_posts/2020-03-30-a-web-page-to-show-online-code.markdown"  
-             );
-
-    embedCode("showScss"
-             ,"_iframecode.scss"
-             ,"https://raw.githubusercontent.com/dc25/davecompton.net/master/_sass/_iframecode.scss"
-             ,"https://github.com/dc25/davecompton.net/blob/master/_sass/_iframecode.scss"
-             );
-</script>
