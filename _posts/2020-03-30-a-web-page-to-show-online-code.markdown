@@ -6,6 +6,13 @@ published: true
 github_comments_issueid: 9
 tags:
 ---
+
+**NOTE: This project is in flux.   As of now (2020-04-07) it works but I may be making changes in the near future.  If that happens, I'll update this page accordingly.**
+
+**In particular, the helper site, "https://dc25.github.io/showCode" may also change and, if you use that link directly, in the same way that I have here, your site may stop working.   For this reason, I suggest making a your own copy of that helper site and using your own copy.**
+
+***
+
 A few months back I found myself wanting to discuss (in this blog) some code hosted on github .   How could I display the code in the blog?   I could have used the jekyll highlight tag and inlined the code but then if the actual code changed, the inlined version would be out of date.   
 At first I tried to inline the raw github version of the code of interest but that fails because xframe options are set to deny such usage.
 
@@ -19,7 +26,7 @@ https://dc25.github.io/showCode?codeURL={{ "https://raw.githubusercontent.com/dc
 
 So, for example, clicking on this link ...  [{{display-code}}]({{display-code}}) will bring up a page showing typescript code that the showCode site uses to fetch and display online code.
 
-Or the same web page can be embedded in another page using an iframe.   I am using some html and css to decorate the iframe.
+Or (as shown below) the same web page can be embedded in another page using an iframe.   I am using some html and css to decorate the iframe.
 {% include iframecode.html 
               title=      "show.ts"
               source-url= "https://github.com/dc25/showCode/blob/master/show.ts"
