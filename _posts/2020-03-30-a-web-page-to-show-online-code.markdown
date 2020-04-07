@@ -19,7 +19,7 @@ https://dc25.github.io/showCode?codeURL={{ "https://raw.githubusercontent.com/dc
 
 So, for example, clicking on this link ...  [{{display-code}}]({{display-code}}) will bring up a page showing typescript code that the showCode site uses to fetch and display online code.
 
-Or the same web page can be embedded in another page using an iframe.   I'm using a little html and css to help with setting up the content and style.
+Or the same web page can be embedded in another page using an iframe.   I am using some html and css to decorate the iframe.
 {% include iframecode.html 
               title=      "show.ts"
               source-url= "https://github.com/dc25/showCode/blob/master/show.ts"
