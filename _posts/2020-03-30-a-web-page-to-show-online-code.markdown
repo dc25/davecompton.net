@@ -6,8 +6,7 @@ published: true
 github_comments_issueid: 9
 tags:
 ---
-A few months back I found myself wanting to discuss (in this blog) some code hosted on github .   How to display the code in the blog?   I could have used the jekyll highlight tag and inlined the code but then if the actual code changed, the inlined version would be out of date.   
-
+A few months back I found myself wanting to discuss (in this blog) some code hosted on github .   How could I display the code in the blog?   I could have used the jekyll highlight tag and inlined the code but then if the actual code changed, the inlined version would be out of date.   
 At first I tried to inline the raw github version of the code of interest but that fails because xframe options are set to deny such usage.
 
 To make this work, I created a webpage that would retrieve the content of the url hosting the code and then display it.  The web page is currently hosted at "https://dc25.github.io/showCode" and it expects an encoded url as argument with the id "codeURL".   This is a static site that does not depend on a backend server.
@@ -18,10 +17,9 @@ The code displayed will be highlighted using [code prettify by google](https://g
 https://dc25.github.io/showCode?codeURL={{ "https://raw.githubusercontent.com/dc25/showCode/master/show.ts" | url_encode }}
 {% endcapture %}
 
-So, for example, clicking on this link ...  <a href="{{display-code}}">{{display-code}}</a> will bring up a page showing typescript code that the showCode site uses to fetch and display online code.
+So, for example, clicking on this link ...  [{{display-code}}]({{display-code}}) will bring up a page showing typescript code that the showCode site uses to fetch and display online code.
 
-Or the same web page can be embedded in another page using an iframe.   I'm using a little html and css to help with setting up the content and style but, strictly speaking, that's not necessary.  
-
+Or the same web page can be embedded in another page using an iframe.   I'm using a little html and css to help with setting up the content and style.
 {% include iframecode.html 
               title=      "show.ts"
               source-url= "https://github.com/dc25/showCode/blob/master/show.ts"
@@ -29,14 +27,20 @@ Or the same web page can be embedded in another page using an iframe.   I'm usin
               height=     "460px" %}
 
 Below is the markdown used to create this page (the prettifier seems to have some trouble with markdown).  This includes the javascript that helps set up the content on this page.
-
 {% include iframecode.html 
               title=      "2020-03-30-a-web-page-to-show-online-code.markdown"
               source-url= "https://github.com/dc25/davecompton.net/blob/master/_posts/2020-03-30-a-web-page-to-show-online-code.markdown"
               raw-url=    "https://raw.githubusercontent.com/dc25/davecompton.net/master/_posts/2020-03-30-a-web-page-to-show-online-code.markdown"
               height=     "860px" %}
 
-And here is the scss that is used to style the code displayed on this page.
+Here is the html included to decorate the displayed code.
+{% include iframecode.html 
+              title=      "iframecode.html" 
+              source-url= "https://github.com/dc25/davecompton.net/blob/master/_includes/iframecode.html"
+              raw-url=    "https://raw.githubusercontent.com/dc25/davecompton.net/master/_includes/iframecode.html" 
+              height=     "250px" %}
+
+And here is the sass for the css used to style the included html.
 {% include iframecode.html 
               title=      "_iframecode.scss" 
               source-url= "https://github.com/dc25/davecompton.net/blob/master/_sass/_iframecode.scss" 
