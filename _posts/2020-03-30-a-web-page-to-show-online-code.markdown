@@ -13,7 +13,8 @@ tags:
 
 ***
 
-A few months back I found myself wanting to discuss (in this blog) some code hosted on github .   How could I display the code in the blog?   I could have used the jekyll highlight tag and inlined the code but then if the actual code changed, the inlined version would be out of date.   
+A few months back I found myself wanting to discuss (in this blog) some code hosted on github .   How could I display the code in the blog?   I could have used the jekyll highlight tag and inlined the code but then if the actual code changed, the inlined version would be out of date. There are a couple ways to include the content a github "gist" in a jekyll blog but that also could would need to be kept up to date.
+
 At first I tried to inline the raw github version of the code of interest but that fails because xframe options are set to deny such usage.
 
 To make this work, I created a webpage that would retrieve the content of the url hosting the code and then display it.  The web page is currently hosted at "https://dc25.github.io/showCode" and it expects an encoded url as argument with the id "codeURL".   This is a static site that does not depend on a backend server.
