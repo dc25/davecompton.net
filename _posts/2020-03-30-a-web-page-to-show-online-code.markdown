@@ -29,28 +29,24 @@ So, for example, clicking on this link ...  [{{display-code}}]({{display-code}})
 
 Or (as shown below) the same web page can be embedded in another page using an iframe.   I am using some html and css to decorate the iframe.
 {% include iframecode.html 
-              title=      "show.ts"
               source-url= "https://github.com/dc25/showCode/blob/master/show.ts"
               raw-url=    "https://raw.githubusercontent.com/dc25/showCode/master/show.ts"
               height=     "460px" %}
 
 Below is the markdown used to create this page (the prettifier seems to have some trouble with markdown).  This includes the javascript that helps set up the content on this page.
 {% include iframecode.html 
-              title=      "2020-03-30-a-web-page-to-show-online-code.markdown"
               source-url= "https://github.com/dc25/davecompton.net/blob/master/_posts/2020-03-30-a-web-page-to-show-online-code.markdown"
               raw-url=    "https://raw.githubusercontent.com/dc25/davecompton.net/master/_posts/2020-03-30-a-web-page-to-show-online-code.markdown"
               height=     "860px" %}
 
 Here is the html included to decorate the displayed code.
 {% include iframecode.html 
-              title=      "iframecode.html" 
               source-url= "https://github.com/dc25/davecompton.net/blob/master/_includes/iframecode.html"
               raw-url=    "https://raw.githubusercontent.com/dc25/davecompton.net/master/_includes/iframecode.html" 
               height=     "250px" %}
 
 And here is the sass for the css used to style the included html.
 {% include iframecode.html 
-              title=      "_iframecode.scss" 
               source-url= "https://github.com/dc25/davecompton.net/blob/master/_sass/_iframecode.scss" 
               raw-url=    "https://raw.githubusercontent.com/dc25/davecompton.net/master/_sass/_iframecode.scss" 
               height=     "500px" %}
