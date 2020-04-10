@@ -7,9 +7,9 @@ github_comments_issueid: 9
 tags:
 ---
 
-**NOTE: This project is in flux.   As of now (2020-04-07) it works but I may be making changes in the near future.  If that happens, I'll update this page accordingly.**
+**NOTE: This project is in flux.   As of now (2020-04-07) it works but I may be making changes in the near future.  If that happens, I will update this page accordingly.**
 
-**In particular, the helper site, "https://dc25.github.io/showCode" may also change and, if you use that link directly, in the same way that I have here, your site may stop working.   For this reason, I suggest making a your own copy of that helper site and using your own copy.**
+**In particular, the helper site, "https://dc25.github.io/showCode" may also change and, if you use that link directly, in the same way that I have here, your site may stop working.   For this reason, I suggest making and using your own copy of that helper site.
 
 ***
 
