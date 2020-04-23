@@ -19,4 +19,4 @@ github_comments_repository: dc25/myBlog-comments
 
 # Build settings
 markdown: kramdown
-exclude: ["README.md", "Rakefile", "Gemfile", "Gemfile.lock", "CNAME"]
+exclude: ["README.md", "Rakefile", "Gemfile", "Gemfile.lock"]
