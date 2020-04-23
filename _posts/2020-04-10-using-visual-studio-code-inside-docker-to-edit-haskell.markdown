@@ -150,3 +150,5 @@ $ code .
 # Notes
 
 Interactive debugging works after creating a launch.json file for your project.   You can do this inside VScode by pressing Ctrl-Shift-d, and then following menus/prompts .   Select "haskell-debug-adapter" in the pull down menu that appears.  Initially, the test suite will be selected for debugging - to change this, replace "test/Spec.hs" in the "launch.json" file with "app/Main.hs" .
+
+Even after going through the above process, interactive debugging did not work very well.  For example, stepping into code after hitting a breakpoint did not always work.  
