@@ -12,7 +12,7 @@ This blog post describes a way to use Vscode from inside of Docker to edit and d
 # Prerequisites
 * A linux desktop computer with docker installed.   
 
-I installed docker-ce per these instructions: https://beta.docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository
+I installed docker-ce per these instructions: [https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository)
 
 # Overview
 Build a haskell development Docker image, "haskell" .
@@ -28,7 +28,7 @@ The haskell image:
 
 Start a container from the "haskell" image and then ssh into it from the host machine.  Because the user id in the container matches the host user id, shells running on the container have the same access to mounted files as on the host.  Tmux allows creation of multiple windows from inside the ssh login.  The ssh -Y option lets X windows (such as vscode) display on the host machine.
 
-This (probably) will only work on Linux hosts.  I am using Ubuntu 16.04 with the docker community edition (installation instructions here). : https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository 
+This (probably) will only work on Linux hosts.  I am using Ubuntu 16.04 with the docker community edition (installation instructions here). : [https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository)
 
 # Published Code
 
@@ -61,7 +61,7 @@ $ dob haskell
 
 On my computer, this took about an hour and used about 14 gigabytes of disk space.  When this is done you should have a docker image named "haskell".  
 
-The Dockerfile in the haskell repository expects the userid and username on the build command line. The dob alias does that.
+The Dockerfile in the haskelldev repository expects your userid, username, and .ssh public key as build command line arguments. The dob alias provides those arguments.
 
 # Running the "haskell" image.
 
@@ -71,34 +71,9 @@ The dor bash function starts a container based on the "haskell" image as follows
 $ dor haskell
 {% endhighlight %} 
 
-The "haskell" image contains a script called start.sh . This script expects user name and your ssh public key to be passed to it at run time. The ssh public key is taken from the file ~/.ssh/id_rsa.pub .   If you don't have this file, use the ssh-keygen command to generate it (just accept the defaults):
+In the container, the 'dor' function invokes a script called start.sh . That script starts a ssh daemon that enables ssh access to the running container.   
 
-{% highlight bash %}
-$ ssh-keygen
-Generating public/private rsa key pair.
-Enter file in which to save the key (/home/dave/.ssh/id_rsa): 
-Enter passphrase (empty for no passphrase): 
-Enter same passphrase again: 
-Your identification has been saved in /home/dave/.ssh/id_rsa.
-Your public key has been saved in /home/dave/.ssh/id_rsa.pub.
-The key fingerprint is:
-SHA256:zwtr0IYnJq3ejKg/CaBJAXSMgCpDVGKG2qS10Zq/EOM dave@peach
-The key's randomart image is:
-+---[RSA 2048]----+
-|X*++             |
-|=+*..            |
-|+=.=             |
-|B.B              |
-|=+ + . oS        |
-|+ E o * +o       |
-| . o = =. o      |
-|  o.o+  .o .     |
-|.oooo o.. .      |
-+----[SHA256]-----+
-$ 
-{% endhighlight %} 
-
-If you want to access a directory on the host machine from inside the container, a mount can be specified a run time ( when running the function dor ).  For example:
+If you want to access a directory on the host machine from inside the container, a mount can be specified a run time ( when running the function, 'dor' ).  For example:
 
 {% highlight bash %}
 $ mkdir -p $HOME/workarea
