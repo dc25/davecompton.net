@@ -3,6 +3,7 @@ layout: post
 title: "Using Visual Studio Code Inside Docker To Edit Haskell"
 date: 2020-04-10 02:39:18 +0000
 published: true
+github_comments_issueid: 11
 tags:
 ---
 # Intro
