@@ -111,8 +111,7 @@ From inside the ssh session, use stack, vscode.
 {% highlight bash %}
 $ cd /workarea
 $
-$ # Resolver 15.2 is latest that works with entire tool set.
-$ stack new sampleProject --resolver=lts-15.2  
+$ stack new sampleProject 
 $
 $ cd sampleProject
 $ 
