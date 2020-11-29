@@ -29,7 +29,7 @@ I built podman from scratch using the instructions [here](https://podman.io/gett
 * --privileged  was needed for rust debugging to work in vscode.  Without this got error: "'A' packet returned an error: 8" when running a rust program from vscode.
 
 # BASH SCRIPT
-Below is a script that I wrote and used to build and install podman.  It exists in [this repository](https://github.com/dc25/buildPodman) .  For the most part it just implements the steps found on the [website linked to earlier](https://podman.io/getting-started/installation.html).
+Below is a script that builds and installs podman.  It exists in [this repository](https://github.com/dc25/buildPodman) .  For the most part it just implements the steps found on the [website linked to earlier](https://podman.io/getting-started/installation.html).
 
 {% include iframecode.html 
               source-url= "https://github.com/dc25/buildPodman/blob/main/build.sh"
