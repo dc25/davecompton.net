@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dave Compton</title>
+    <description>What I am doing, what I have done, and what I learned along the way.
+</description>
+    <link>https://dc25.github.io/</link>
+    <atom:link href="https://dc25.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Wed, 10 Feb 2021 13:08:32 +0000</pubDate>
+    <lastBuildDate>Wed, 10 Feb 2021 13:08:32 +0000</lastBuildDate>
+    <generator>Jekyll v4.1.1</generator>
+    
+      <item>
+        <title>Note To Self: first apt install</title>
+        <description>&lt;p&gt;Just a note for my own convenience:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt update -y
+sudo apt upgrade -y
+
+sudo apt install -y openssh-server git vim-gtk3 tmux net-tools
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Wed, 10 Feb 2021 02:33:41 +0000</pubDate>
+        <link>https://dc25.github.io/2021/02/10/note-to-self-first-apt-install.html</link>
+        <guid isPermaLink="true">https://dc25.github.io/2021/02/10/note-to-self-first-apt-install.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Switching from docker to podman</title>
+        <description>&lt;p&gt;I’ve been doing most of my coding inside docker based environments.  A few weeks ago I found out about podman, a docker workalike.   Podman has a couple advantages over docker :&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;No need to run as root.&lt;/li&gt;
+  &lt;li&gt;Does not require the support of a daemon.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There is at least one disadvantage too :&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Not available via apt on Ubuntu 20.04 ( which I am using ).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;What follows are a few notes regarding getting podman working on Ubuntu 20.04.   These are mostly for me but there’s nothing confidential here so I’m publishing it here for anyone who might run into the same (minor) issues that I ran into.&lt;/p&gt;
+
+&lt;h1 id=&quot;building&quot;&gt;BUILDING&lt;/h1&gt;
+&lt;p&gt;I built podman from scratch using the instructions &lt;a href=&quot;https://podman.io/getting-started/installation.html&quot;&gt;here&lt;/a&gt; and ran into the following (minor) problems.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;btrfs-tools was not available on Ubuntu 20.04 - used btrfs-progs instead.&lt;/li&gt;
+  &lt;li&gt;libprotobuf-c0-dev was not available on Ubuntu 20.04 - used libprotobuf-c-dev instead.&lt;/li&gt;
+  &lt;li&gt;I had GOROOT already set in my environment which did not work well with setting GOPATH as suggested in instructions.  Had to unset GOROOT.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;running&quot;&gt;RUNNING&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Installed slirp4netns fuse-overlayfs as needed at runtime.&lt;/li&gt;
+  &lt;li&gt;now need to explicitly EXPOSE appropriate ports for access from host.  In docker was relying on docker daemon to handle routing to docker local network.&lt;/li&gt;
+  &lt;li&gt;–userns=keep-id  was needed to get permissions right on volumes mounted from hosts.   Without this the mounted volume was only readable by root.&lt;/li&gt;
+  &lt;li&gt;–privileged  was needed for rust debugging to work in vscode.  Without this got error: “‘A’ packet returned an error: 8” when running a rust program from vscode.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;bash-script&quot;&gt;BASH SCRIPT&lt;/h1&gt;
+&lt;p&gt;Below is a script that builds and installs podman.  It exists in &lt;a href=&quot;https://github.com/dc25/buildPodman&quot;&gt;this repository&lt;/a&gt; .  For the most part it just implements the steps found on the &lt;a href=&quot;https://podman.io/getting-started/installation.html&quot;&gt;website linked to earlier&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;code-container&quot; style=&quot;height:550px&quot;&gt;
+  &lt;iframe class=&quot;code-text&quot; src=&quot;https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2FbuildPodman%2Fmain%2Fbuild.sh&quot;&gt;&lt;/iframe&gt;
+  &lt;hr /&gt;
+  &lt;div class=&quot;code-bar&quot;&gt;
+	  &lt;a href=&quot;https://github.com/dc25/buildPodman/blob/main/build.sh&quot; class=&quot;code-link&quot;&gt;build.sh&lt;/a&gt;
+	  &lt;a href=&quot;https://raw.githubusercontent.com/dc25/buildPodman/main/build.sh&quot; class=&quot;code-raw-link&quot;&gt;view raw&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 28 Nov 2020 20:34:43 +0000</pubDate>
+        <link>https://dc25.github.io/2020/11/28/notes-on-switching-from-docker-to-podman.html</link>
+        <guid isPermaLink="true">https://dc25.github.io/2020/11/28/notes-on-switching-from-docker-to-podman.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Minimal Vscode Typescript Setup</title>
+        <description>&lt;p&gt;Just some notes so I don’t have to figure this out once again.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;mkdir &lt;/span&gt;hw
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;hw
+tsc &lt;span class=&quot;nt&quot;&gt;--init&lt;/span&gt;
+vim tsconfig.json   &lt;span class=&quot;c&quot;&gt;# edit to uncomment sourceMap line&lt;/span&gt;
+vim hw.ts
+code .&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Now&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Open typescript file inside vscode editor&lt;/li&gt;
+  &lt;li&gt;Under Terminal menu, run “watch” build task.&lt;/li&gt;
+  &lt;li&gt;Set desired breakpoints&lt;/li&gt;
+  &lt;li&gt;Under Run menu, “Start Debugging”&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Thu, 23 Apr 2020 04:07:18 +0000</pubDate>
+        <link>https://dc25.github.io/2020/04/23/minimal-vscode-typescript-setup.html</link>
+        <guid isPermaLink="true">https://dc25.github.io/2020/04/23/minimal-vscode-typescript-setup.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Using Visual Studio Code Inside Docker To Edit Haskell</title>
+        <description>&lt;h1 id=&quot;intro&quot;&gt;Intro&lt;/h1&gt;
+
+&lt;p&gt;This blog post describes a way to use Vscode from inside of Docker to edit and debug Haskell.   The technique described will (probably) only work on a linux system because it depends on X tunneling to display the vscode window.&lt;/p&gt;
+
+&lt;h1 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;A linux desktop computer with docker installed.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I installed docker-ce per these instructions: &lt;a href=&quot;https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository&quot;&gt;https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;overview&quot;&gt;Overview&lt;/h1&gt;
+&lt;p&gt;Build a haskell development Docker image, “haskell” .&lt;/p&gt;
+
+&lt;p&gt;The haskell image:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;is based on Ubuntu 19.10&lt;/li&gt;
+  &lt;li&gt;runs sshd to provide for logging in from the host.&lt;/li&gt;
+  &lt;li&gt;contains a user with the same name/id as you have on your host.&lt;/li&gt;
+  &lt;li&gt;has tmux installed&lt;/li&gt;
+  &lt;li&gt;has stack installed&lt;/li&gt;
+  &lt;li&gt;has vscode installed&lt;/li&gt;
+  &lt;li&gt;includes utilities and vscode extensions for Haskell development.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Start a container from the “haskell” image and then ssh into it from the host machine.  Because the user id in the container matches the host user id, shells running on the container have the same access to mounted files as on the host.  Tmux allows creation of multiple windows from inside the ssh login.  The ssh -Y option lets X windows (such as vscode) display on the host machine.&lt;/p&gt;
+
+&lt;p&gt;This (probably) will only work on Linux hosts.  I am using Ubuntu 16.04 with the docker community edition (installation instructions here). : &lt;a href=&quot;https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository&quot;&gt;https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;published-code&quot;&gt;Published Code&lt;/h1&gt;
+
+&lt;p&gt;All of the code in this post is published on github:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/dc25/haskelldev&quot;&gt;https://github.com/dc25/haskelldev&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;useful-bash-shell-functions&quot;&gt;Useful Bash Shell Functions&lt;/h1&gt;
+&lt;p&gt;The following bash shell functions are used in this post:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;dob : wrapper around docker build&lt;/li&gt;
+  &lt;li&gt;dor : wrapper around docker run&lt;/li&gt;
+  &lt;li&gt;dosh : wrapper around ssh&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;All of these aliases are available in the file aliases.docker :&lt;/p&gt;
+
+&lt;div class=&quot;code-container&quot; style=&quot;height:560px&quot;&gt;
+  &lt;iframe class=&quot;code-text&quot; src=&quot;https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2Fhaskelldev%2Fmaster%2Faliases.docker&quot;&gt;&lt;/iframe&gt;
+  &lt;hr /&gt;
+  &lt;div class=&quot;code-bar&quot;&gt;
+	  &lt;a href=&quot;https://github.com/dc25/haskelldev/blob/master/aliases.docker&quot; class=&quot;code-link&quot;&gt;aliases.docker&lt;/a&gt;
+	  &lt;a href=&quot;https://raw.githubusercontent.com/dc25/haskelldev/master/aliases.docker&quot; class=&quot;code-raw-link&quot;&gt;view raw&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;building-the-haskell-image&quot;&gt;Building the “haskell” Image&lt;/h1&gt;
+
+&lt;p&gt;Use the dob alias to build the “haskell” image, as follows:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone https://github.com/dc25/haskelldev.git
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;haskelldev 
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; aliases.docker
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;dob haskell &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;On my computer, this took about an hour and used about 14 gigabytes of disk space.  When this is done you should have a docker image named “haskell”.&lt;/p&gt;
+
+&lt;p&gt;The Dockerfile in the haskelldev repository expects your userid, username, and .ssh public key as build command line arguments. The dob alias provides those arguments.&lt;/p&gt;
+
+&lt;h1 id=&quot;running-the-haskell-image&quot;&gt;Running the “haskell” image.&lt;/h1&gt;
+
+&lt;p&gt;The dor bash function starts a container based on the “haskell” image as follows:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;dor haskell&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;In the container, the ‘dor’ function invokes a script called start.sh . That script starts a ssh daemon that enables ssh access to the running container.&lt;/p&gt;
+
+&lt;p&gt;If you want to access a directory on the host machine from inside the container, a mount can be specified a run time ( when running the function, ‘dor’ ).  For example:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/workarea
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;dor haskell &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/workarea:/haskell_workarea&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Directories mounted in this way will have the same accessibility in the container as on the host machine.&lt;/p&gt;
+
+&lt;h1 id=&quot;logging-in-to-the-container&quot;&gt;Logging in to the container&lt;/h1&gt;
+&lt;p&gt;Use the dosh bash function to log into the running container.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;dosh&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;If all went well, your terminal should contain a shell prompt running in a tmux environment in the container.  Inside this environment, you can use tmux to create new windows as well as other useful operations.  See tmux documentation for more info.&lt;/p&gt;
+
+&lt;h1 id=&quot;haskell-development&quot;&gt;Haskell Development&lt;/h1&gt;
+
+&lt;p&gt;To develop in haskell I use the following tools:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;stack&lt;/li&gt;
+  &lt;li&gt;vscode&lt;/li&gt;
+  &lt;li&gt;hie ( Haskell Ide Engine )&lt;/li&gt;
+  &lt;li&gt;ghcide (seems to be expected by other vscode plugins)&lt;/li&gt;
+  &lt;li&gt;Haskell GHCi Debug Adapter Phoityne (for interactive debugging)&lt;/li&gt;
+  &lt;li&gt;Haskell Language Server Client (vscode plugin to work with hie)&lt;/li&gt;
+  &lt;li&gt;Haskell Syntax Highlighting&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If anyone reading this know of any other tools that would complement this set, please let me know.&lt;/p&gt;
+
+&lt;p&gt;From inside the ssh session, use stack, vscode.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /workarea
+&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;stack new sampleProject 
+&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;sampleProject
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# Do stack build for some setup expected by the vscode environment.&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;stack build 
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;stack build &lt;span class=&quot;nt&quot;&gt;--test&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;code .&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h1 id=&quot;notes&quot;&gt;Notes&lt;/h1&gt;
+
+&lt;p&gt;Interactive debugging works after creating a launch.json file for your project.   You can do this inside VScode by pressing Ctrl-Shift-d, and then following menus/prompts .   Select “haskell-debug-adapter” in the pull down menu that appears.  Initially, the test suite will be selected for debugging - to change this, replace “test/Spec.hs” in the “launch.json” file with “app/Main.hs” .&lt;/p&gt;
+
+&lt;p&gt;Even after going through the above process, interactive debugging did not work very well.  For example, stepping into code after hitting a breakpoint did not always work.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 10 Apr 2020 02:39:18 +0000</pubDate>
+        <link>https://dc25.github.io/2020/04/10/using-visual-studio-code-inside-docker-to-edit-haskell.html</link>
+        <guid isPermaLink="true">https://dc25.github.io/2020/04/10/using-visual-studio-code-inside-docker-to-edit-haskell.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>A Web Page to Show Online Code</title>
+        <description>&lt;p&gt;&lt;strong&gt;NOTE: This project is in flux.   As of now (2020-04-07) it works but I may be making changes in the near future.  If that happens, I will update this page accordingly.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;In particular, the helper site, “https://dc25.github.io/showCode” may also change and, if you use that link directly, in the same way that I have here, your site may stop working.   For this reason, I suggest making and using your own copy of that helper site.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;A few months back I found myself wanting to discuss (in this blog) some code hosted on github .   How could I display the code in the blog?   I could have used the jekyll highlight tag and inlined the code but then if the actual code changed, the inlined version would be out of date. There are a couple ways to include the content a github “gist” in a jekyll blog but that also could would need to be kept up to date.&lt;/p&gt;
+
+&lt;p&gt;At first I tried to inline the raw github version of the code of interest but that fails because xframe options are set to deny such usage.&lt;/p&gt;
+
+&lt;p&gt;To make this work, I created a webpage that would retrieve the content of the url hosting the code and then display it.  The web page is currently hosted at “https://dc25.github.io/showCode” and it expects an encoded url as argument with the id “codeURL”.   This is a static site that does not depend on a backend server.&lt;/p&gt;
+
+&lt;p&gt;The code displayed will be highlighted using &lt;a href=&quot;https://github.com/google/code-prettify&quot;&gt;code prettify by google&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;So, for example, clicking on this link …  &lt;a href=&quot;https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2FshowCode%2Fmaster%2Fshow.ts&quot;&gt;
+https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2FshowCode%2Fmaster%2Fshow.ts
+&lt;/a&gt; will bring up a page showing typescript code that the showCode site uses to fetch and display online code.&lt;/p&gt;
+
+&lt;p&gt;Or (as shown below) the same web page can be embedded in another page using an iframe.   I am using some html and css to decorate the iframe.&lt;/p&gt;
+
+&lt;div class=&quot;code-container&quot; style=&quot;height:460px&quot;&gt;
+  &lt;iframe class=&quot;code-text&quot; src=&quot;https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2FshowCode%2Fmaster%2Fshow.ts&quot;&gt;&lt;/iframe&gt;
+  &lt;hr /&gt;
+  &lt;div class=&quot;code-bar&quot;&gt;
+	  &lt;a href=&quot;https://github.com/dc25/showCode/blob/master/show.ts&quot; class=&quot;code-link&quot;&gt;show.ts&lt;/a&gt;
+	  &lt;a href=&quot;https://raw.githubusercontent.com/dc25/showCode/master/show.ts&quot; class=&quot;code-raw-link&quot;&gt;view raw&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Below is the markdown used to create this page (the prettifier seems to have some trouble with markdown).  This includes the javascript that helps set up the content on this page.&lt;/p&gt;
+
+&lt;div class=&quot;code-container&quot; style=&quot;height:860px&quot;&gt;
+  &lt;iframe class=&quot;code-text&quot; src=&quot;https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2Fdavecompton.net%2Fmaster%2F_posts%2F2020-03-30-a-web-page-to-show-online-code.markdown&quot;&gt;&lt;/iframe&gt;
+  &lt;hr /&gt;
+  &lt;div class=&quot;code-bar&quot;&gt;
+	  &lt;a href=&quot;https://github.com/dc25/davecompton.net/blob/master/_posts/2020-03-30-a-web-page-to-show-online-code.markdown&quot; class=&quot;code-link&quot;&gt;2020-03-30-a-web-page-to-show-online-code.markdown&lt;/a&gt;
+	  &lt;a href=&quot;https://raw.githubusercontent.com/dc25/davecompton.net/master/_posts/2020-03-30-a-web-page-to-show-online-code.markdown&quot; class=&quot;code-raw-link&quot;&gt;view raw&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here is the html included to decorate the displayed code.&lt;/p&gt;
+
+&lt;div class=&quot;code-container&quot; style=&quot;height:250px&quot;&gt;
+  &lt;iframe class=&quot;code-text&quot; src=&quot;https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2Fdavecompton.net%2Fmaster%2F_includes%2Fiframecode.html&quot;&gt;&lt;/iframe&gt;
+  &lt;hr /&gt;
+  &lt;div class=&quot;code-bar&quot;&gt;
+	  &lt;a href=&quot;https://github.com/dc25/davecompton.net/blob/master/_includes/iframecode.html&quot; class=&quot;code-link&quot;&gt;iframecode.html&lt;/a&gt;
+	  &lt;a href=&quot;https://raw.githubusercontent.com/dc25/davecompton.net/master/_includes/iframecode.html&quot; class=&quot;code-raw-link&quot;&gt;view raw&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;And here is the sass for the css used to style the included html.&lt;/p&gt;
+
+&lt;div class=&quot;code-container&quot; style=&quot;height:500px&quot;&gt;
+  &lt;iframe class=&quot;code-text&quot; src=&quot;https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2Fdavecompton.net%2Fmaster%2F_sass%2F_iframecode.scss&quot;&gt;&lt;/iframe&gt;
+  &lt;hr /&gt;
+  &lt;div class=&quot;code-bar&quot;&gt;
+	  &lt;a href=&quot;https://github.com/dc25/davecompton.net/blob/master/_sass/_iframecode.scss&quot; class=&quot;code-link&quot;&gt;_iframecode.scss&lt;/a&gt;
+	  &lt;a href=&quot;https://raw.githubusercontent.com/dc25/davecompton.net/master/_sass/_iframecode.scss&quot; class=&quot;code-raw-link&quot;&gt;view raw&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 30 Mar 2020 18:58:32 +0000</pubDate>
+        <link>https://dc25.github.io/2020/03/30/a-web-page-to-show-online-code.html</link>
+        <guid isPermaLink="true">https://dc25.github.io/2020/03/30/a-web-page-to-show-online-code.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Building Jekyll site locally to be displayed on Github</title>
+        <description>&lt;p&gt;If you publish a Jekyll based website on Github they will do the Jekyll compile for you.  This is easy and quick to set up but here are some reasons you may want to build on your local machine and push the results up to Github:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Github only supports a limited number of Jekyll plugins.  If you use any plugins outside of that set then you must build locally and push the result.&lt;/li&gt;
+  &lt;li&gt;Other web hosting sites will not support automated Jekyll builds in the same way.  If you want to compare sites you may need to do a local build anyway.&lt;/li&gt;
+  &lt;li&gt;Github does not provide automated builds for static site generators other than Jekyll.  Knowing how to push a local build lends itself to working with those other static site generators.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here’s a script that provides some help in pushing a local build to the gh-pages branch for a repository.  It’s not very polished - users will need to edit it to specify the correct baseurl for the jekyll build.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#! /bin/bash
+
+# -- Build with baseurl, '/ntest'
+# bundle exec jekyll build --baseurl '/ntest' 
+
+# -- Build with no baseurl
+bundle exec jekyll build 
+
+# -- Get rid of any existing local gh-pages
+git branch -D gh-pages
+
+# -- Create a new gh-pages branch not based on any existing branch
+git checkout --orphan gh-pages 
+
+# -- Delete the junk that git puts into this new branch 
+# -- ( see git-checkout --orphan documentation for details. )
+git rm -rf .
+
+# -- add, commit, and push contents from _site to gh-pages branch.
+git --work-tree _site/ add . 
+git --work-tree _site/ commit -m 'gh-pages commit' .
+git --work-tree _site/ push -f origin gh-pages
+
+## -- go back to working on master branch and clean up.
+git checkout -f master
+git branch -D gh-pages
+rm -rf _site
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Thu, 13 Dec 2018 22:50:01 +0000</pubDate>
+        <link>https://dc25.github.io/2018/12/13/building-jekyll-site-locally-to-be-displayed-on-github.html</link>
+        <guid isPermaLink="true">https://dc25.github.io/2018/12/13/building-jekyll-site-locally-to-be-displayed-on-github.html</guid>
+        
+        <category>Jekyll</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Pentominoes Puzzle Solver - Haskell/ghcjs/Miso</title>
+        <description>&lt;p&gt;Here’s &lt;a href=&quot;https://dc25.github.io/pentominoes_miso/&quot;&gt;a web app&lt;/a&gt;, written in &lt;a href=&quot;https://www.haskell.org/&quot;&gt;Haskell&lt;/a&gt;, compiled with the &lt;a href=&quot;https://github.com/ghcjs/ghcjs&quot;&gt;ghcjs compiler&lt;/a&gt;, using &lt;a href=&quot;https://haskell-miso.org/&quot;&gt;the Miso library&lt;/a&gt;, that solves the the classic &lt;a href=&quot;https://en.wikipedia.org/wiki/Pentomino#Tiling_rectangles&quot;&gt;pentominoes puzzle&lt;/a&gt; .&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 14 Apr 2018 15:02:19 +0000</pubDate>
+        <link>https://dc25.github.io/2018/04/14/pentominoes-puzzle-solver-haskell-ghcjs-miso.html</link>
+        <guid isPermaLink="true">https://dc25.github.io/2018/04/14/pentominoes-puzzle-solver-haskell-ghcjs-miso.html</guid>
+        
+        <category>Haskell</category>
+        
+        <category>Miso</category>
+        
+        <category>ghcjs</category>
+        
+        <category>pentominoes</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Trying out micro.blog</title>
+        <description>&lt;p&gt;I heard about &lt;a href=&quot;https://micro.blog&quot;&gt;micro.blog&lt;/a&gt; on &lt;a href=&quot;https://geekspeak.org/episodes/2018/01/19&quot;&gt;Geek Speak&lt;/a&gt; this morning and signed up just now. This is my first post since then - I think it should show up there ( micro.blog ) also.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 25 Jan 2018 02:11:50 +0000</pubDate>
+        <link>https://dc25.github.io/2018/01/25/trying-out-micro.blog.html</link>
+        <guid isPermaLink="true">https://dc25.github.io/2018/01/25/trying-out-micro.blog.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Exponential Sum Of the Day (Haskell/Reflex)</title>
+        <description>&lt;p&gt;&lt;a href=&quot;https://www.johndcook.com/blog/2017/11/02/recent-exponential-sums/&quot;&gt;This post&lt;/a&gt; describes a way to associate a pretty graph with every date as follows:  A date is represented by three integers (month, day, year) which are used as input into an equation to get a series of points which are then summed to get another series of points and finally connected by line segments to get the graph.&lt;/p&gt;
+
+&lt;p&gt;As an exercise, I implemented a &lt;a href=&quot;https://dc25.github.io/dailySum/&quot;&gt;web app that draws these graphs&lt;/a&gt;.  It initially draws the graph that cooresponds to today’s date.  Forward and back buttons let you view the graphs for other dates.&lt;/p&gt;
+
+&lt;p&gt;The web app is written in &lt;a href=&quot;https://www.haskell.org/&quot;&gt;Haskell&lt;/a&gt;, and compiled to &lt;a href=&quot;https://en.wikipedia.org/wiki/JavaScript&quot;&gt;Javascript&lt;/a&gt; using the &lt;a href=&quot;https://github.com/ghcjs/ghcjs&quot;&gt;ghcjs compiler&lt;/a&gt;.  The &lt;a href=&quot;https://hackage.haskell.org/package/reflex&quot;&gt;reflex library&lt;/a&gt; is used for event handling and display.&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 05 Jan 2018 21:16:26 +0000</pubDate>
+        <link>https://dc25.github.io/2018/01/05/exponential-sum-of-the-day-haskell-reflex.html</link>
+        <guid isPermaLink="true">https://dc25.github.io/2018/01/05/exponential-sum-of-the-day-haskell-reflex.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Minesweepers written using:  Elm, Reflex, Miso</title>
+        <description>&lt;p&gt;As a learning experience, I implemented the &lt;a href=&quot;https://en.wikipedia.org/wiki/Minesweeper_(video_game)&quot;&gt;classic minesweeper game&lt;/a&gt; in Haskell with the &lt;a href=&quot;https://github.com/reflex-frp/reflex&quot;&gt;Reflex toolkit&lt;/a&gt;, in Haskell using &lt;a href=&quot;https://haskell-miso.org/&quot;&gt;the Miso toolkit&lt;/a&gt;, and in &lt;a href=&quot;http://elm-lang.org/&quot;&gt;Elm&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The source for all three is on github:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/dc25/minesweeperReflex&quot;&gt;minesweeperReflex&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/dc25/minesweeperMiso&quot;&gt;minesweeperMiso&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/dc25/minesweeperElm&quot;&gt;minesweeperElm&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here are links to live versions of each:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://dc25.github.io/minesweeperReflex&quot;&gt;minesweeperReflex&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://dc25.github.io/minesweeperMiso&quot;&gt;minesweeperMiso&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://dc25.github.io/minesweeperElm&quot;&gt;minesweeperElm&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The code for each version is as similar to the others as I could make it without sacrificing performance.&lt;/p&gt;
+
+&lt;p&gt;The Reflex version was the first implementation.  I tried a variety of approaches - the current one was the most responsive.&lt;/p&gt;
+
+&lt;p&gt;The Elm version was a port of the Reflex version.  It’s the most responsive of the three and also the quickest to load.&lt;/p&gt;
+
+&lt;p&gt;The Miso version was a port of the Elm version with some code from the Reflex version brought in and then changed as needed to get it working.Programming in Miso feels very similar to programming in Elm.&lt;/p&gt;
+
+&lt;p&gt;Along the way I made small changes to all three of them to keep the code as similar as possible across implementations.&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 26 Nov 2017 04:18:07 +0000</pubDate>
+        <link>https://dc25.github.io/2017/11/26/minesweepers-written-using-elm-reflex-miso.html</link>
+        <guid isPermaLink="true">https://dc25.github.io/2017/11/26/minesweepers-written-using-elm-reflex-miso.html</guid>
+        
+        <category>Haskell</category>
+        
+        <category>Reflex</category>
+        
+        <category>Elm</category>
+        
+        <category>Miso</category>
+        
+        
+      </item>
+    
+  </channel>
+</rss>
