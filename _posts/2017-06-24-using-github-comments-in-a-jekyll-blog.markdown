@@ -40,7 +40,7 @@ The code consists of four new files and two modifications:
 
 * Modified Files
     * `_layouts/default.html`
-    * `_sass/minima.scss`
+    * `_sass/minima/initialize.scss`
 
 ### Reference Implementation
 The repository [dc25/minimaWithGithubComments][minimaCommented] is a clone of the [jekyll/minima][minima] repository modified to allow Github comments.  In addition to the above Github comments changes, [the blog][minimaBlog] contains a [single post][minimaBlogPost] that shares the same comments as this post.   
