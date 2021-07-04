@@ -1,0 +1,20 @@
+---
+layout: post
+title: "Dual Boot Dell 7410 RST Error"
+date: 2021-07-04 15:06:33 +0000
+published: true
+tags:
+---
+
+If you try to install Ubuntu Linux alongside Windows 10 on a Dell 7410 laptop you may run into an error related to RST along the way.   This happened to me and this post is a "note to self" that tells how I got past it.   It may also apply to other makes/models of computers.
+
+When this error comes up, Ubuntu flashes a qr code that directs you to the following site: https://help.ubuntu.com/rst .   I found the information on this site to be useless.
+
+Dual boot Ubuntu and Windows on a dell laptop | Turn off RST
+
+This video : [Dual boot Ubuntu and Windows on a dell laptop \| Turn off RST][1] turned out to be much more helpful.   It describes a complete Windows/Linux dual boot but the key point (for me) came at about 6:50 into the video.
+
+In short, the trick is to get windows to boot under AHCI (not RST) and the way to do that is to switch windows to "safe boot" using the System Configuration, turn on AHCI in the bios settings, boot (using safe boot), switch windows back to "normal boot" and then reboot.   The "safe boot" caused the "AHCI" driver to be installed.  After doing this, I was able to successfully install Ubuntu (20.04).
+
+[1]: https://www.youtube.com/watch?v=wDrCaAdGuMk
+
