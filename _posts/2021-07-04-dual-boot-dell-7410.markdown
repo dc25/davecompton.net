@@ -3,14 +3,13 @@ layout: post
 title: "Dual Boot Dell 7410 RST Error"
 date: 2021-07-04 15:06:33 +0000
 published: true
+github_comments_issueid: "4"
 tags:
 ---
 
 If you try to install Ubuntu Linux alongside Windows 10 on a Dell 7410 laptop you may run into an error related to RST along the way.   This happened to me and this post is a "note to self" that tells how I got past it.   It may also apply to other makes/models of computers.
 
 When this error comes up, Ubuntu flashes a qr code that directs you to the following site: https://help.ubuntu.com/rst .   I found the information on this site to be useless.
-
-Dual boot Ubuntu and Windows on a dell laptop | Turn off RST
 
 This video : [Dual boot Ubuntu and Windows on a dell laptop \| Turn off RST][1] turned out to be much more helpful.   It describes a complete Windows/Linux dual boot but the key point (for me) came at about 6:50 into the video.
 
