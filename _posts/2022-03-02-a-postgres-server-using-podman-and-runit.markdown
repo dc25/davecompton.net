@@ -31,5 +31,5 @@ Here's a script that does this.
               height=     "560px" %}
 
 
-As configured the database served is not stored anywhere permanant.   You can fix this by changing the run script to suit your needs.
+As configured the database served is not stored anywhere permanent.   You can fix this by changing the run script to suit your needs.
 
