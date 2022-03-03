@@ -3,13 +3,14 @@ layout: post
 title: "A postgres server using podman and runit"
 date: 2022-03-02 16:10:10 -0800
 published: true
+github_comments_issueid: 14
 tags:
 ---
 
 Here's a way to quickly set up a postgres server on a ubuntu 21.10 desktop machine.
 
-Install podman and runit.
-Configure runit to run postgres in a podman container.
+* Install podman, runit, and runit-systemmd.
+* Create a one line run script to run postgres in a podman container.
 
 That's all.  The server should start immediately and on reboot.
 
