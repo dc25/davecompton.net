@@ -3,6 +3,7 @@ layout: post
 title: "Rust + GKT4 on Windows: Getting Started"
 date: 2022-04-10 06:23:40 -0700
 published: true
+github_comments_issueid: 16
 tags:
 ---
 
