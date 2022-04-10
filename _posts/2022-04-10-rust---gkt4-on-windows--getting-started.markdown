@@ -11,7 +11,7 @@ This post is mostly the same information as on [this medium post](https://doko-d
 
 Doko, if you read this, thank you for the instructions, they were very helpful.  
 
-I'm creating *this* post to preserve the information on the Doko page and to offer a few comments on my experience with the process outlined there and to attest that it worked.
+I'm creating *this* post to preserve what I learned from the Doko page and to offer a few comments on my experience with the process outlined there and to attest that it worked.
 
 #  Install Rust
 
@@ -59,7 +59,7 @@ rustup default stable-x86_64-pc-windows-gnu
 ```
 rustup show
 ```
-... again to see that your target has changed.
+... again to see that the current target has changed.
 
 # Install MSYS2 
 Use the [provided installer](https://www.msys2.org/)
