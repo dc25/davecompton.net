@@ -3,3 +3,5 @@ ruby RUBY_VERSION
 
 gem "jekyll"
 gem 'rake'
+
+gem "webrick", "~> 1.7"
