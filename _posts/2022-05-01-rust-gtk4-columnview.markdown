@@ -7,7 +7,15 @@ github_comments_issueid: 17
 tags:
 ---
 
-I couldn't find any Rust/GTK4 sample code showing how to use ColumnView so I wrote this:
+I couldn't find any Rust/GTK4 sample code showing how to use ColumnView so I wrote one.  
+
+* Two columns
+* 100000 rows
+* Model is StringList containing StringObject(s) - both defined by GTK4
+* Deletes row from model when user double clicks on it.
+* Tested on Linux and Windows
+
+If you read this and have any questions/comments, please let me know.
 
 
 {% include iframecode.html 
