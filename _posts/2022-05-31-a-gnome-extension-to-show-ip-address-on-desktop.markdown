@@ -14,8 +14,8 @@ The code resides [on github](https://github.com/dc25/cmd_wallpaper) .   It consi
 Usage instructions are in the README for the project. They amount to copying the project to a path in your local machine and specifying a program for the extension to run.  I use the following shell script:
 
 {% include iframecode.html 
-              source-url= "https://github.com/dc25/desktop_notes/blob/main/desktop_notes.sh"
-              raw-url=    "https://raw.githubusercontent.com/dc25/desktop_notes/main/desktop_notes.sh"
+              source-url= "https://github.com/dc25/cmd_wallpaper/blob/main/desktop_notes.sh"
+              raw-url=    "https://raw.githubusercontent.com/dc25/cmd_wallpaper/main/desktop_notes.sh"
               height=     "400px" %}
 
 This results in a desktop that looks like this:
