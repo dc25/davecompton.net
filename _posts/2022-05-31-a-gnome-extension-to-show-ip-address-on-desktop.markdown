@@ -3,6 +3,7 @@ layout: post
 title: "A Gnome extension to show IP address on desktop"
 date: 2022-05-31 11:07:27 -0700
 published: true
+github_comments_issueid: "18"
 tags:
 ---
 
