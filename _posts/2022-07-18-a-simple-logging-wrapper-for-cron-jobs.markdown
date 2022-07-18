@@ -3,6 +3,7 @@ layout: post
 title: "A Simple Logging Wrapper For Cron Jobs"
 date: 2022-07-18 14:06:31 -0700
 published: true
+github_comments_issueid: "19"
 tags:
 ---
 For preserving output from cron jobs: [https://github.com/dc25/loggedcron](https://github.com/dc25/loggedcron)
