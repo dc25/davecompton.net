@@ -20,7 +20,7 @@ There are a number of sites that will host images for free.   Some of these are 
 
 ---
 # github:
-![image from github](https://github.com/dc25/birdphoto/raw/main/bird.jpg)`
+![image from github](https://github.com/dc25/birdphoto/raw/main/bird.jpg)
 I got the image link by :
 * Uploading the image to [a github repository](https://github.com/dc25/birdphoto).
 * Clicking on the [image in the repository](https://github.com/dc25/birdphoto/blob/main/bird.jpg)
@@ -28,8 +28,8 @@ I got the image link by :
 
 ---
 # imgur.com:
-![image from imgur.com](https://i.imgur.com/VJtlHBD.jpg)`
-Just click on the uploaded image and use the "Direct Link"
+![image from imgur.com](https://i.imgur.com/VJtlHBD.jpg)
+Just click on the uploaded image in imgur.com and use the "Direct Link"
 
 ---
 Below is the markup for *this* page, included to show how to embed the images.
