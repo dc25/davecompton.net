@@ -42,5 +42,5 @@ Below is the markup for *this* page, included to show how to embed the images.
 {% include iframecode.html 
               source-url= "https://github.com/dc25/davecompton.net/blob/master/_posts/2023-02-05-proof-of-concept--image-hosting.markdown"
               raw-url=    "https://raw.githubusercontent.com/dc25/davecompton.net/master/_posts/2023-02-05-proof-of-concept--image-hosting.markdown"
-              height=     "750px" %}
+              height=     "800px" %}
 
