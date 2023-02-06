@@ -32,10 +32,15 @@ I got the image link by :
 Just click on the uploaded image in imgur.com and use the "Direct Link"
 
 ---
+# imgbb.com:
+![image from imgbb.com](https://i.ibb.co/sw3Zpzq/bird.jpg)
+use the "Direct links" option in the "Embed codes" menu for the uploated image in imgbb.com
+
+---
 Below is the markup for *this* page, included to show how to embed the images.
 
 {% include iframecode.html 
               source-url= "https://github.com/dc25/davecompton.net/blob/master/_posts/2023-02-05-proof-of-concept--image-hosting.markdown"
               raw-url=    "https://raw.githubusercontent.com/dc25/davecompton.net/master/_posts/2023-02-05-proof-of-concept--image-hosting.markdown"
-              height=     "700px" %}
+              height=     "750px" %}
 
