@@ -15,8 +15,12 @@ Here are some RSS tricks (I'm sure there's a better word but that will do for no
 
 * For google alerts, create the alert via alerts.google.com, edit the alert to "Deliver to" RSS feed, then follow the RSS icon for the new alert.
 
-* For twitter, use a nitter instance.  For example: https://nitter.privacydev.net/nytimes/rss .   Twitter seems to be a moving target.   As of 8/21/2023, the link here worked but it may not last.
-
 * For mastodon, use, for example, https://mathstodon.xyz/@johncarlosbaez.rss
+
+* For twitter, use a nitter instance.  For example: https://nitter.privacydev.net/nytimes/rss .   Twitter seems to be a moving target.   
+     * As of 8/21/2023, the twitter/nitter technique here worked but it may not last. 
+     * As of 09/01/2023 it's broken.
+     * If anyone reading this knows a way to view a twitter feed as rss, please let me know.
+
 
 
