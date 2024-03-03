@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dave Compton</title>
+    <description>What I am doing, what I have done, and what I learned along the way.
+</description>
+    <link>https://davecompton.net/</link>
+    <atom:link href="https://davecompton.net/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 03 Mar 2024 13:39:49 -0800</pubDate>
+    <lastBuildDate>Sun, 03 Mar 2024 13:39:49 -0800</lastBuildDate>
+    <generator>Jekyll v4.3.2</generator>
+    
+      <item>
+        <title>Notes about tteck dashboards for proxmox</title>
+        <description>&lt;p&gt;I’m trying out some of the “dashboards” for proxmox listed under the tteck scripts collection.   I’ll update this page as I go.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h1 id=&quot;mafl-lxc&quot;&gt;Mafl LXC&lt;/h1&gt;
+
+&lt;p&gt;Installation went smoothly.   Access was in browser via port 3000. This results in a page that looks like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/dc25/davecompton.net_images/raw/main/mafl_home_page.jpg&quot; alt=&quot;image from github&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As far as I can tell, each of these icons is a link that by default is not enabled.   I looked briefly at the documentation to find out what it takes to get them working but got impatient and moved on.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h1 id=&quot;heimdall-dashboard-lxc&quot;&gt;Heimdall Dashboard LXC&lt;/h1&gt;
+
+&lt;p&gt;Again, install went smoothly.   Access through port 7990, Used the builtin gui to add a couple of “apps” resulting in this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/dc25/davecompton.net_images/raw/main/heimdall_dashboard.jpg&quot; alt=&quot;image from github&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;These are clickable and I configured them to link to the plex and pi-hole web interfaces.&lt;/p&gt;
+
+&lt;p&gt;I’m starting to get the impression that a “dashboard” is just a fancy collection of bookmarks.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h1 id=&quot;homepage-lxc&quot;&gt;Homepage LXC&lt;/h1&gt;
+
+&lt;p&gt;Again, install went without a hitch.   Access using browser at port# 3000.   Configure using scripts at /opt/homepage/config . I added plex and LMS to get a setup like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/dc25/davecompton.net_images/raw/main/homepage_dashboard.jpg&quot; alt=&quot;image from github&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h1 id=&quot;thoughts&quot;&gt;Thoughts&lt;/h1&gt;
+
+&lt;p&gt;These seem pretty easy to install and configure but I don’t think they buy you all that much.   I’ll probably stick with plain old bookmarks.&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 02 Mar 2024 09:03:56 -0800</pubDate>
+        <link>https://davecompton.net/2024/03/02/notes-about-tteck-dashboards-for-proxmox.html</link>
+        <guid isPermaLink="true">https://davecompton.net/2024/03/02/notes-about-tteck-dashboards-for-proxmox.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Windows sshd notes</title>
+        <description>&lt;p&gt;Yesterday I tried (but failed) to get sshd working on my windows machine.   Here are some notes to self in case I ever go this route again.
+I’ve been using &lt;a href=&quot;https://chocolatey.org/install&quot;&gt;choco&lt;/a&gt; to install windows software when possible.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ choco install openssh
+Chocolatey v2.2.2
+3 validations performed. 2 success(es), 1 warning(s), and 0 error(s).
+
+Validation Warnings:
+ - System Cache directory is not locked down to administrators.
+   Remove the directory &apos;C:\ProgramData\ChocolateyHttpCache&apos; to have
+   Chocolatey CLI create it with the proper permissions.
+
+Installing the following packages:
+openssh
+By installing, you accept licenses for the packages.
+Progress: Downloading openssh 8.0.0.1... 100%
+
+openssh v8.0.0.1 [Approved]
+openssh package files install completed. Performing other installation steps.
+The package openssh wants to run &apos;chocolateyinstall.ps1&apos;.
+Note: If you don&apos;t run this script, the installation will fail.
+Note: To confirm automatically next time, use &apos;-y&apos; or consider:
+choco feature enable -n allowGlobalConfirmation
+Do you want to run the script?([Y]es/[A]ll - yes to all/[N]o/[P]rint): Y
+
+Running on: Windows 10 Pro, (Professional)
+Windows Version: 10.0.19045
+
+************************************************************************************
+************************************************************************************
+This package is a Universal Installer and can ALSO install Win32-OpenSSH on
+Nano, Server Core, Docker Containers and more WITHOUT using Chocolatey.
+
+.... (more output)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, per &lt;a href=&quot;https://github.com/PowerShell/Win32-OpenSSH/wiki/Install-Win32-OpenSSH&quot;&gt;OpenSSH instructions&lt;/a&gt; , open port 22 , install openssh as a service, and start the service&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;dc202@DESKTOP-MAR8MAD /cygdrive/c
+$ cd &apos;c:/Program Files/OpenSSH-Win64&apos;
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files/OpenSSH-Win64
+$ netsh advfirewall firewall add rule name=sshd dir=in action=allow protocol=TCP localport=22
+Ok.
+
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files/OpenSSH-Win64
+$ powershell.exe -ExecutionPolicy Bypass -File install-sshd.ps1
+[SC] SetServiceObjectSecurity SUCCESS
+[SC] ChangeServiceConfig2 SUCCESS
+[SC] ChangeServiceConfig2 SUCCESS
+sshd and ssh-agent services successfully installed
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files/OpenSSH-Win64
+$ net start sshd
+The OpenSSH SSH Server service is starting.
+The OpenSSH SSH Server service was started successfully.
+
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files/OpenSSH-Win64
+$
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;That seems to be &lt;em&gt;almost&lt;/em&gt; enough but when I try to log in remotely, ssh rejects my password:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;dave@vbox:/tmp$ ssh -l dc202 192.168.8.146
+dc202@192.168.8.146&apos;s password:
+Permission denied, please try again.
+dc202@192.168.8.146&apos;s password:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;At this point I searched online a little for a solution but eventually gave up (for now).&lt;/p&gt;
+
+&lt;p&gt;I restored the machine to its previous state.   Thanks to &lt;a href=&quot;https://superuser.com/a/1237985&quot;&gt;this superuser.com answer from “Vomit IT - Chunky Mess Style”&lt;/a&gt; for telling how to undo the firewall changes.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files
+$ net stop sshd
+
+The OpenSSH SSH Server service was stopped successfully.
+
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files
+$ netsh advfirewall firewall show rule status=enabled name=all | grep sshd
+Rule Name:                            sshd
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files
+$ netsh advfirewall firewall delete rule name=&quot;sshd&quot;
+
+Deleted 1 rule(s).
+Ok.
+
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files
+$ cd &apos;c:/Program Files/OpenSSH-Win64&apos;/
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files/OpenSSH-Win64
+$ powershell.exe -ExecutionPolicy Bypass -File uninstall-sshd.ps1
+sshd successfully uninstalled
+ssh-agent successfully uninstalled
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files/OpenSSH-Win64
+$ cd ..
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files
+$ choco uninstall openssh
+Chocolatey v2.2.2
+3 validations performed. 2 success(es), 1 warning(s), and 0 error(s).
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files
+$ rm -rf OpenSSH-Win64/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If anyone reads this and happens to know what the missing link is to get logins working, please let me know.&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 14 Dec 2023 05:14:27 -0800</pubDate>
+        <link>https://davecompton.net/2023/12/14/windows-sshd-notes.html</link>
+        <guid isPermaLink="true">https://davecompton.net/2023/12/14/windows-sshd-notes.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>RSS &quot;tricks&quot; to access various sources (reddit, twitter, etc)</title>
+        <description>&lt;p&gt;Here are some RSS tricks (I’m sure there’s a better word but that will do for now).   I’ll add more as I learn about them.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;For reddit.com/r/rust RSS feed, use : www.reddit.com/r/rust/new/.rss&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For stack overflow questions tagged rust use: https://stackoverflow.com/feeds/tag/rust?sort=newest&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For google alerts, create the alert via alerts.google.com, edit the alert to “Deliver to” RSS feed, then follow the RSS icon for the new alert.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For mastodon, use, for example, https://mathstodon.xyz/@johncarlosbaez.rss&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For twitter, use a nitter instance.  For example: https://nitter.privacydev.net/nytimes/rss .   Twitter seems to be a moving target.&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;As of 8/21/2023, the twitter/nitter technique here worked but it may not last.&lt;/li&gt;
+      &lt;li&gt;As of 09/01/2023 it’s broken.&lt;/li&gt;
+      &lt;li&gt;If anyone reading this knows a way to view a twitter feed as rss, please let me know.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Fri, 31 Mar 2023 06:31:01 -0700</pubDate>
+        <link>https://davecompton.net/2023/03/31/note-to-self-rss-for-stack-overflow-and-reddit.html</link>
+        <guid isPermaLink="true">https://davecompton.net/2023/03/31/note-to-self-rss-for-stack-overflow-and-reddit.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Proof of Concept: image hosting</title>
+        <description>&lt;p&gt;There are a number of sites that will host images for free.   Some of these are demonstrated below.   Remember these are free solutions that may or may not be maintained so it’s probably a good idea to keep local copies of all your photos (i.e. don’t use these for storage - just for display).   I may add to the collection if I learn about other hosting options.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h1 id=&quot;dropbox&quot;&gt;Dropbox:&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;https://www.dropbox.com/s/ffmsl8yel52wtbt/bird.jpg?raw=1&quot; alt=&quot;image from dropbox&quot; /&gt;
+&lt;a href=&quot;https://www.dropboxforum.com/t5/Create-upload-and-share/How-do-I-embed-images-with-a-direct-link-from-Dropbox/td-p/245432&quot;&gt;How to get dropbox image url.&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h1 id=&quot;flickr&quot;&gt;Flickr:&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;https://live.staticflickr.com/65535/52670424446_5abbf3bb04_o.jpg&quot; alt=&quot;image from flickr&quot; /&gt;
+&lt;a href=&quot;https://www.flickrhelp.com/hc/en-us/articles/4404078014356-Share-or-Embed-Flickr-Photos-or-Albums&quot;&gt;How to get flickr image url.&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h1 id=&quot;github&quot;&gt;github:&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/dc25/birdphoto/raw/main/bird.jpg&quot; alt=&quot;image from github&quot; /&gt;
+I got the image link by :&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Uploading the image to &lt;a href=&quot;https://github.com/dc25/birdphoto&quot;&gt;a github repository&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Clicking on the &lt;a href=&quot;https://github.com/dc25/birdphoto/blob/main/bird.jpg&quot;&gt;image in the repository&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Right clicking on the download link and selecting “Copy link address”&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+&lt;h1 id=&quot;imgurcom&quot;&gt;imgur.com:&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/VJtlHBD.jpg&quot; alt=&quot;image from imgur.com&quot; /&gt;
+Just click on the uploaded image in imgur.com and use the “Direct Link”&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h1 id=&quot;imgbbcom&quot;&gt;imgbb.com:&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/sw3Zpzq/bird.jpg&quot; alt=&quot;image from imgbb.com&quot; /&gt;
+use the “Direct links” option in the “Embed codes” menu for the uploated image in imgbb.com&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;Below is the markup for &lt;em&gt;this&lt;/em&gt; page, included to show how to embed the images.&lt;/p&gt;
+
+&lt;div class=&quot;code-container&quot; style=&quot;height:800px&quot;&gt;
+  &lt;iframe class=&quot;code-text&quot; src=&quot;https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2Fdavecompton.net%2Fmaster%2F_posts%2F2023-02-05-proof-of-concept--image-hosting.markdown&quot;&gt;&lt;/iframe&gt;
+  &lt;hr /&gt;
+  &lt;div class=&quot;code-bar&quot;&gt;
+	  &lt;a href=&quot;https://github.com/dc25/davecompton.net/blob/master/_posts/2023-02-05-proof-of-concept--image-hosting.markdown&quot; class=&quot;code-link&quot;&gt;2023-02-05-proof-of-concept--image-hosting.markdown&lt;/a&gt;
+	  &lt;a href=&quot;https://raw.githubusercontent.com/dc25/davecompton.net/master/_posts/2023-02-05-proof-of-concept--image-hosting.markdown&quot; class=&quot;code-raw-link&quot;&gt;view raw&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 05 Feb 2023 06:30:31 -0800</pubDate>
+        <link>https://davecompton.net/2023/02/05/proof-of-concept-image-hosting.html</link>
+        <guid isPermaLink="true">https://davecompton.net/2023/02/05/proof-of-concept-image-hosting.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Changing the default grub selection (almost painless)</title>
+        <description>&lt;p&gt;A couple months ago I added Linux Mint as a boot option on my work computer.   This morning after booting into Mint for the first time in months, updating with apt, and rebooting I found that my grub boot menu had been reordered with Mint as default.  Because I rarely boot into Mint, I wanted to change the default boot selection.&lt;/p&gt;
+
+&lt;p&gt;Later on, working in Ubuntu now, I searched the web and found &lt;a href=&quot;https://askubuntu.com/a/110738&quot;&gt;these instructions&lt;/a&gt; that say to&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;change /etc/default/grub to specify a default&lt;/li&gt;
+  &lt;li&gt;run update-grub.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I did this but nothing changed.&lt;/p&gt;
+
+&lt;p&gt;The reason that nothing changed is that Mint had taken ownership of the boot process.   After booting into Mint and making the same changes, the default boot option was updated as expected.&lt;/p&gt;
+
+&lt;p&gt;Looking back, this should have been obvious but it cost me a few minutes.&lt;/p&gt;
+
+&lt;p&gt;At some point, I expect that an Ubuntu update will again rewrite the grub configuration and I’ll have to go through the process again on the Ubuntu side.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 07 Nov 2022 07:05:06 -0800</pubDate>
+        <link>https://davecompton.net/2022/11/07/changing-the-default-grub-selection-almost-painless.html</link>
+        <guid isPermaLink="true">https://davecompton.net/2022/11/07/changing-the-default-grub-selection-almost-painless.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Another Logging Wrapper For Cron Jobs</title>
+        <description>&lt;p&gt;This logging wrapper, written in perl, has a few improvements on the previous one:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Command line option: “–skip-repeats” to prevent saving results identical to previous run.&lt;/li&gt;
+  &lt;li&gt;Command line option: “–path-head” for specification of top level directory for results.  Defaults to command name.&lt;/li&gt;
+  &lt;li&gt;Command line option: “–path-resolution” for specification of resolution of directory creation for output files.   Defaults to “year”&lt;/li&gt;
+  &lt;li&gt;Pushes results to remote git repository.&lt;/li&gt;
+  &lt;li&gt;Partitions the output files by year directory.   The github web interface  complains about more than 1000 files in a directory.&lt;/li&gt;
+  &lt;li&gt;Implemented in two files: loggedcron.pl and gitsweep.pl .   The first, loggedcron.pl runs a command and saves the output in ~/cron_logs .   The second, gitsweep.pl, pushes the contents of ~/cron_logs into a remote git repo.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;code-container&quot; style=&quot;height:1600px&quot;&gt;
+  &lt;iframe class=&quot;code-text&quot; src=&quot;https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2Fstartup%2Fmaster%2Fbin%2Floggedcron.pl&quot;&gt;&lt;/iframe&gt;
+  &lt;hr /&gt;
+  &lt;div class=&quot;code-bar&quot;&gt;
+	  &lt;a href=&quot;https://github.com/dc25/startup/blob/master/bin/loggedcron.pl&quot; class=&quot;code-link&quot;&gt;loggedcron.pl&lt;/a&gt;
+	  &lt;a href=&quot;https://raw.githubusercontent.com/dc25/startup/master/bin/loggedcron.pl&quot; class=&quot;code-raw-link&quot;&gt;view raw&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;code-container&quot; style=&quot;height:500px&quot;&gt;
+  &lt;iframe class=&quot;code-text&quot; src=&quot;https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2Fstartup%2Fmaster%2Fbin%2Fgitsweep.pl&quot;&gt;&lt;/iframe&gt;
+  &lt;hr /&gt;
+  &lt;div class=&quot;code-bar&quot;&gt;
+	  &lt;a href=&quot;https://github.com/dc25/startup/blob/master/bin/gitsweep.pl&quot; class=&quot;code-link&quot;&gt;gitsweep.pl&lt;/a&gt;
+	  &lt;a href=&quot;https://raw.githubusercontent.com/dc25/startup/master/bin/gitsweep.pl&quot; class=&quot;code-raw-link&quot;&gt;view raw&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;So, for example, if you want a record of how much free space you have every night at 1:02, enter the following in your crontab (with appropriate changes of course):&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;02 01 * * * /home/dave/bin/loggedcron.pl df -k
+*  *  * * * /home/dave/bin/gitsweep.pl
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Mon, 17 Oct 2022 13:01:12 -0700</pubDate>
+        <link>https://davecompton.net/2022/10/17/another-logging-wrapper-for-cron-jobs.html</link>
+        <guid isPermaLink="true">https://davecompton.net/2022/10/17/another-logging-wrapper-for-cron-jobs.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>A Simple Logging Wrapper For Cron Jobs</title>
+        <description>&lt;p&gt;For preserving output from cron jobs: &lt;a href=&quot;https://github.com/dc25/loggedcron&quot;&gt;https://github.com/dc25/loggedcron&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In all its glory:&lt;/p&gt;
+
+&lt;div class=&quot;code-container&quot; style=&quot;height:240px&quot;&gt;
+  &lt;iframe class=&quot;code-text&quot; src=&quot;https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2Floggedcron%2Fmain%2Floggedcron.bash&quot;&gt;&lt;/iframe&gt;
+  &lt;hr /&gt;
+  &lt;div class=&quot;code-bar&quot;&gt;
+	  &lt;a href=&quot;https://github.com/dc25/loggedcron/blob/main/loggedcron.bash&quot; class=&quot;code-link&quot;&gt;loggedcron.bash&lt;/a&gt;
+	  &lt;a href=&quot;https://raw.githubusercontent.com/dc25/loggedcron/main/loggedcron.bash&quot; class=&quot;code-raw-link&quot;&gt;view raw&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;So, for example, if you want a record of how much free space you have every night at 1:02, enter the following in your crontab (with appropriate changes of course):&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;02 01 * * * /home/dave/bin/loggedcron.bash df -k
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Mon, 18 Jul 2022 14:06:31 -0700</pubDate>
+        <link>https://davecompton.net/2022/07/18/a-simple-logging-wrapper-for-cron-jobs.html</link>
+        <guid isPermaLink="true">https://davecompton.net/2022/07/18/a-simple-logging-wrapper-for-cron-jobs.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>A Gnome extension to show IP address on desktop</title>
+        <description>&lt;p&gt;&lt;strong&gt;NOTE:  As of &lt;a href=&quot;https://gjs.guide/extensions/upgrading/gnome-shell-45.html#esm&quot;&gt;GNOME Shell 45&lt;/a&gt; , this no longer works.  I spent a few hours trying to update it but decided it was not worth the effort.   My guess is that it &lt;em&gt;could&lt;/em&gt; be fixed but it’s not that important to me and I don’t think anyone else is using it.   If someone reading this figures out how to get it working again, please let me know what it takes.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Here’s a way to configure Gnome to display some useful information on the Ubuntu Gnome desktop.  I use a variety of virtual machines and it’s nice to be able to easily tell which machine I’m dealing with at any one time as well as having the ip address for ssh access to that machine.  I use this extension to display the machine name and ip addresses.   I also show some other information but that’s easy to configure so if you use this extension, you can decide.&lt;/p&gt;
+
+&lt;p&gt;The code resides &lt;a href=&quot;https://github.com/dc25/cmd_wallpaper&quot;&gt;on github&lt;/a&gt; .   It consists of less than 50 lines of javascript and a few lines of json.  Most of the code came from the answer to &lt;a href=&quot;https://stackoverflow.com/questions/29816027/a-simple-way-to-show-my-hostname-ip-in-gnome-panel-or-on-my-desktop-background&quot;&gt;this stackoverflow question&lt;/a&gt; .   I made a couple minor modifications.&lt;/p&gt;
+
+&lt;p&gt;Usage instructions are in the README for the project. They amount to copying the project to a path in your local machine and specifying a program for the extension to run.  I use the following shell script:&lt;/p&gt;
+
+&lt;div class=&quot;code-container&quot; style=&quot;height:400px&quot;&gt;
+  &lt;iframe class=&quot;code-text&quot; src=&quot;https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2Fcmd_wallpaper%2Fmain%2Fdesktop_notes.sh&quot;&gt;&lt;/iframe&gt;
+  &lt;hr /&gt;
+  &lt;div class=&quot;code-bar&quot;&gt;
+	  &lt;a href=&quot;https://github.com/dc25/cmd_wallpaper/blob/main/desktop_notes.sh&quot; class=&quot;code-link&quot;&gt;desktop_notes.sh&lt;/a&gt;
+	  &lt;a href=&quot;https://raw.githubusercontent.com/dc25/cmd_wallpaper/main/desktop_notes.sh&quot; class=&quot;code-raw-link&quot;&gt;view raw&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;This results in a desktop that looks like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/annotated.jpg&quot; alt=&quot;Desktop Image&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 31 May 2022 11:07:27 -0700</pubDate>
+        <link>https://davecompton.net/2022/05/31/a-gnome-extension-to-show-ip-address-on-desktop.html</link>
+        <guid isPermaLink="true">https://davecompton.net/2022/05/31/a-gnome-extension-to-show-ip-address-on-desktop.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Rust/GTK4/ColumnView</title>
+        <description>&lt;p&gt;I couldn’t find any Rust/GTK4 sample code showing how to use ColumnView so I wrote one.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Two columns&lt;/li&gt;
+  &lt;li&gt;100000 rows&lt;/li&gt;
+  &lt;li&gt;Model is StringList containing StringObject(s) - both defined by GTK4&lt;/li&gt;
+  &lt;li&gt;Deletes row from model when user double clicks on it.&lt;/li&gt;
+  &lt;li&gt;Tested on Linux and Windows&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you read this and have any questions/comments, please let me know.&lt;/p&gt;
+
+&lt;div class=&quot;code-container&quot; style=&quot;height:1400px&quot;&gt;
+  &lt;iframe class=&quot;code-text&quot; src=&quot;https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2Fgtk_columnview%2Fmain%2Fsrc%2Fmain.rs&quot;&gt;&lt;/iframe&gt;
+  &lt;hr /&gt;
+  &lt;div class=&quot;code-bar&quot;&gt;
+	  &lt;a href=&quot;https://github.com/dc25/gtk_columnview/blob/main/src/main.rs&quot; class=&quot;code-link&quot;&gt;main.rs&lt;/a&gt;
+	  &lt;a href=&quot;https://raw.githubusercontent.com/dc25/gtk_columnview/main/src/main.rs&quot; class=&quot;code-raw-link&quot;&gt;view raw&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 01 May 2022 21:40:01 -0700</pubDate>
+        <link>https://davecompton.net/2022/05/01/rust-gtk4-columnview.html</link>
+        <guid isPermaLink="true">https://davecompton.net/2022/05/01/rust-gtk4-columnview.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Rust + GKT4 on Windows: Getting Started</title>
+        <description>&lt;p&gt;This post is mostly the same information as on &lt;a href=&quot;https://doko-demo-doa.medium.com/rust-gtk-on-windows-getting-started-14aa2d7c825d&quot;&gt;this medium post&lt;/a&gt;, by someone named Doko, which I will refer to in this post as “the Doko page”.&lt;/p&gt;
+
+&lt;p&gt;Doko, if you read this, thank you for the instructions, they were very helpful.&lt;/p&gt;
+
+&lt;p&gt;I’m creating &lt;em&gt;this&lt;/em&gt; post to preserve what I learned from the Doko page and to offer a few comments on my experience with the process outlined there and to attest that it worked.&lt;/p&gt;
+
+&lt;h1 id=&quot;install-rust&quot;&gt;Install Rust&lt;/h1&gt;
+
+&lt;p&gt;I did this a while back on windows and I don’t remember doing anything special.  Instructions &lt;a href=&quot;https://www.rust-lang.org/tools/install&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Check rust version with:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rustc --version
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Update rust with&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rustup update
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;add-the-gnu-toolchain&quot;&gt;Add the GNU toolchain&lt;/h1&gt;
+
+&lt;p&gt;The Doko page suggests doing this even before installing the gnu tools.  I had my doubts but it worked.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rustup target add x86_64-pc-windows-gnu
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Run …&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rustup show
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;… to show the current target:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;stable-x86_64-pc-windows-gnu
+stable-x86_64-pc-windows-msvc (default)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Run …&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rustup default stable-x86_64-pc-windows-gnu
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;… to switch targets and run …&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rustup show
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;… again to see that the current target has changed.&lt;/p&gt;
+
+&lt;h1 id=&quot;install-msys2&quot;&gt;Install MSYS2&lt;/h1&gt;
+&lt;p&gt;Use the &lt;a href=&quot;https://www.msys2.org/&quot;&gt;provided installer&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;using-a-cmd-shell-set-the-following-environment-variables&quot;&gt;Using a cmd shell, set the following environment variables:&lt;/h1&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;SET GTK_LIB_DIR=C:\msys64\mingw64\lib
+SET PATH=%PATH%;C:\msys64\mingw64\bin
+SETX GTK_LIB_DIR %GTK_LIB_DIR%
+SETX PATH %PATH%
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I was following the Doko page as closely as possible so I did this but I’m not sure if it was really necessary.  If I go through this process again, I’ll try setting them in a shell startup script.&lt;/p&gt;
+
+&lt;h1 id=&quot;using-a-msys-shell-run-the-following-commands&quot;&gt;Using a MSYS Shell, run the following commands;&lt;/h1&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pacman -S mingw-w64-x86_64-gtk4
+pacman -S mingw-w64-x86_64-toolchain
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The Doko page specifies gtk3 which I tried first. It worked but I wanted to use gtk4 and that worked as well.&lt;/p&gt;
+
+&lt;h1 id=&quot;compile-and-run-gtk4-programs&quot;&gt;Compile and run gtk4 programs.&lt;/h1&gt;
+&lt;p&gt;Examples are available as part of the &lt;a href=&quot;https://github.com/gtk-rs/gtk4-rs&quot;&gt;gtk4-rs repository&lt;/a&gt;.
+They work both on Windows and on Linux without modification.&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 10 Apr 2022 06:23:40 -0700</pubDate>
+        <link>https://davecompton.net/2022/04/10/rust-gkt4-on-windows-getting-started.html</link>
+        <guid isPermaLink="true">https://davecompton.net/2022/04/10/rust-gkt4-on-windows-getting-started.html</guid>
+        
+        
+      </item>
+    
+  </channel>
+</rss>
