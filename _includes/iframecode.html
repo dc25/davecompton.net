@@ -1,0 +1,12 @@
+{% assign raw_file_name={{include.raw-url | split: "/" | last}} %}
+{% assign final_title={{include.title | default: raw_file_name }} %}
+
+<div class="code-container" style="height:{{include.height}}">
+  <iframe class="code-text" src="https://dc25.github.io/showCode?codeURL={{include.raw-url | url_encode}}"></iframe>
+  <hr>
+  <div class="code-bar">
+	  <a href="{{include.source-url}}" class="code-link">{{final_title}}</a>
+	  <a href="{{include.raw-url}}" class="code-raw-link">view raw</a>
+  </div>
+</div>
+<br>
