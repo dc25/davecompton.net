@@ -1,0 +1,25 @@
+.code-container {
+  display: flex; 
+  width: 100%; 
+  flex-direction: column; 
+  overflow: hidden;
+  border-style: solid;
+}
+
+.code-bar {
+  padding: 10px;
+}
+
+.code-raw-link {
+  float: right;
+}
+
+.code-link {
+}
+
+.code-text { 
+  flex-grow: 1; 
+  border: none; 
+  margin: 0; 
+  padding: 0; 
+}
