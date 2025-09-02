@@ -15,8 +15,8 @@ github_comments_repository:  dc25/myBlog-comments
 # If you clone the Minima repo and build locally, use this setting.
 theme: minima
 
-# As of November 2023, GitHub Pages still uses Minima 2.5.1 (https://pages.github.com/versions/). 
-# If you want to use the latest Minima version on GitHub Pages, use the following setting and 
+# As of November 2023, GitHub Pages still uses Minima 2.5.1 (https://pages.github.com/versions/).
+# If you want to use the latest Minima version on GitHub Pages, use the following setting and
 # add a line comment on "theme: minima" above.
 #remote_theme: jekyll/minima
 
@@ -47,7 +47,7 @@ minima:
   #show_excerpts: false
 
   # Minima date format.
-  # The default value is "%b %d, %Y" (e.g. Nov 14, 2023) 
+  # The default value is "%b %d, %Y" (e.g. Nov 14, 2023)
   # Refer to https://shopify.github.io/liquid/filters/date/ if you want to customize this.
   #date_format: "%b-%d-%Y"
 
@@ -66,4 +66,4 @@ minima:
   #    icon: x-twitter
   #    url: "https://x.com/jekyllrb"
 
-exclude: ["CODE_OF_CONDUCT.md", "History.markdown", "minima.gemspec", "README.md"]
+exclude: ["CODE_OF_CONDUCT.md", "History.markdown", "minima.gemspec", "README.md", "Rakefile"]
