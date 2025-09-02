@@ -65,3 +65,5 @@ minima:
   #  - title: Jekyll at X (formerly Twitter)
   #    icon: x-twitter
   #    url: "https://x.com/jekyllrb"
+
+exclude: ["CODE_OF_CONDUCT.md", "History.markdown", "minima.gemspec", "README.md"]
