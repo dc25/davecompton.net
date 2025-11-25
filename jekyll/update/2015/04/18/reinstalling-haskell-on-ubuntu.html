@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Reinstalling haskell/cabal/haste on ubuntu. | Dave Compton</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Reinstalling haskell/cabal/haste on ubuntu." />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Over the last couple of months I have been using the haste (haskell -&gt; javascript ) compiler. Because the haste-compiler does not work well with cabal sandboxes, I’ve been doing “cabal install” commands that go into the ~/.cabal directory that is shared by all projects." />
+<meta property="og:description" content="Over the last couple of months I have been using the haste (haskell -&gt; javascript ) compiler. Because the haste-compiler does not work well with cabal sandboxes, I’ve been doing “cabal install” commands that go into the ~/.cabal directory that is shared by all projects." />
+<meta property="og:site_name" content="Dave Compton" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2015-04-18T15:42:00-07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Reinstalling haskell/cabal/haste on ubuntu." />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2015-04-18T15:42:00-07:00","datePublished":"2015-04-18T15:42:00-07:00","description":"Over the last couple of months I have been using the haste (haskell -&gt; javascript ) compiler. Because the haste-compiler does not work well with cabal sandboxes, I’ve been doing “cabal install” commands that go into the ~/.cabal directory that is shared by all projects.","headline":"Reinstalling haskell/cabal/haste on ubuntu.","mainEntityOfPage":{"@type":"WebPage","@id":"/jekyll/update/2015/04/18/reinstalling-haskell-on-ubuntu.html"},"url":"/jekyll/update/2015/04/18/reinstalling-haskell-on-ubuntu.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Dave Compton" />
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Dave Compton</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Reinstalling haskell/cabal/haste on ubuntu.</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2015-04-18T15:42:00-07:00" itemprop="datePublished">
+        Apr 18, 2015
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Over the last couple of months I have been using the haste (haskell -&gt; javascript ) compiler.  Because the haste-compiler does not work well with cabal sandboxes, I’ve been doing “cabal install” commands that go into the ~/.cabal directory that is shared by all projects.</p>
+
+<p>Every now and then I suspect that my haskell configuration has fallen into some bad state that is causing me problems.  When this happens, I like to uninstall all haskell related software, delete all my personal haskell configuration, and start over.</p>
+
+<p>What follows is a summary of how I go about doing that uninstall/delete/reinstall process.  If you don’t care about haste, disregard that part.  Everything up to there is haste-indepedent.</p>
+
+<p>This is just “what works for me”.  I don’t claim that what follows is efficient, complete, or even necessary.  I do, however, find it to be an occasionally useful part of my own work flow.</p>
+
+<h3 id="first-start-from-scratch">FIRST, START FROM SCRATCH</h3>
+<ul>
+  <li>Clean out existing installations of ghc, cabal, haste :</li>
+</ul>
+
+<blockquote>
+  <p>rm -rf ~/.ghc ~/.cabal ~/.haste <br />
+sudo apt-get remove haskell-platform        <br />
+sudo apt-get remove cabal-install           <br />
+sudo apt-get remove ghc  <br />
+sudo apt-get autoremove</p>
+</blockquote>
+
+<ul>
+  <li>(get rid of any other ghc/cabal installations you may have too)</li>
+</ul>
+
+<blockquote>
+  <p>which ghc</p>
+</blockquote>
+
+<p>( should report nothing )</p>
+
+<blockquote>
+  <p>which cabal</p>
+</blockquote>
+
+<p>( should report nothing )</p>
+
+<ul>
+  <li>reboot to make a clean start</li>
+</ul>
+
+<blockquote>
+  <p>sudo reboot</p>
+</blockquote>
+
+<h3 id="install-haskell">INSTALL HASKELL</h3>
+<ul>
+  <li>Install platform using apt-get</li>
+</ul>
+
+<blockquote>
+  <p>sudo apt-get update<br />
+sudo apt-get install haskell-platform</p>
+</blockquote>
+
+<h3 id="step-up-to-a-newer-cabal">STEP UP TO A NEWER CABAL</h3>
+<blockquote>
+  <p>cabal update</p>
+</blockquote>
+
+<ul>
+  <li>Install a usable version of cabal.  I use 1.20.0.3 because it is the latest that works well with the haskell-related vim extensions that I use (ghc-mod, hdevtools, hlint).  <a href="http://stackoverflow.com/questions/27298268/why-does-cabal-init-break-ghc-mod-check">More details here</a>.</li>
+</ul>
+
+<blockquote>
+  <p>git clone git://github.com/haskell/cabal.git <br />
+cd cabal<br />
+git checkout tags/Cabal-v1.20.0.3<br />
+cabal install Cabal/ cabal-install/</p>
+</blockquote>
+
+<ul>
+  <li>Now make sure PATH environment variable includes ~/.cabal/bin</li>
+  <li>Start a new shell.</li>
+  <li>Verify that the correct version of cabal is running.</li>
+</ul>
+
+<blockquote>
+  <p>which cabal</p>
+</blockquote>
+
+<p>(should report $HOME/.cabal/bin/cabal )</p>
+
+<blockquote>
+  <p>cabal –version</p>
+</blockquote>
+
+<p>Should report as follows:</p>
+
+<blockquote>
+  <p>cabal –version<br />
+      cabal-install version 1.20.0.4<br />
+      using version 1.20.0.3 of the Cabal library</p>
+</blockquote>
+
+<p>(I don’t know why install version differs from library version)</p>
+
+<p>At this point you should be able to use haskell (ghc) and cabal.  The cabal version you have installed includes the “cabal sandbox” feature.</p>
+
+<p><a href="http://coldwa.st/e/blog/2013-08-20-Cabal-sandbox.html">This introduction to cabal sandboxes</a> is my original reference for this cabal-related information.</p>
+
+<h3 id="install-haste">INSTALL HASTE</h3>
+<ul>
+  <li>get haste:</li>
+</ul>
+
+<blockquote>
+  <p>git clone https://github.com/valderman/haste-compiler.git</p>
+</blockquote>
+
+<ul>
+  <li>Install a stable version of haste.</li>
+</ul>
+
+<blockquote>
+  <p>cd haste-compiler<br />
+git checkout tags/0.4.4.3<br />
+cabal install<br />
+haste-boot –local</p>
+</blockquote>
+
+<p>At this point you should be able to use haste (hastec) in addition to haskell and cabal.  Note that haste does not work well with cabal sandboxes.</p>
+
+<p><a href="http://haste-lang.org/downloads/">This page from the haste documentation</a> is my original reference for this haste-related information.</p>
+
+<h3 id="verify-that-haste-works">VERIFY THAT HASTE WORKS</h3>
+<p>Haste comes with a test suite that you should now be able to run.  From within the haste-compiler directory execute “./runtest.sh” .  When I do this, I get 58 out of 59 tests passing and 1 failure.</p>
+
+
+  </div><a class="u-url" href="/jekyll/update/2015/04/18/reinstalling-haskell-on-ubuntu.html" hidden></a>
+</article>
+
+      </div>
+    </main>
+
+    <div class="page-content">
+      <div class="wrapper">
+        
+
+      </div>
+    </div><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <path d="M12.8 16C12.8 8.978 7.022 3.2 0 3.2V0c8.777 0 16 7.223 16 16h-3.2zM2.194
+                11.61c1.21 0 2.195.985 2.195 2.196 0 1.21-.99 2.194-2.2 2.194C.98 16 0 15.017 0
+                13.806c0-1.21.983-2.195 2.194-2.195zM10.606
+                16h-3.11c0-4.113-3.383-7.497-7.496-7.497v-3.11c5.818 0 10.606 4.79 10.606 10.607z"
+              />
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+        <ul class="contact-list">
+          <li><a class="u-email" href="mailto:davecompton7@gmail.com">davecompton7@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>What I am doing, what I have done, and what I learned along the way.
+</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+<!-- Default Statcounter code for Davecompton.net
+https://davecompton.net -->
+<script type="text/javascript">
+var sc_project=11610177; 
+var sc_invisible=1; 
+var sc_security="d324e394"; 
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="real time web
+analytics" href="https://statcounter.com/"
+target="_blank"><img class="statcounter"
+src="https://c.statcounter.com/11610177/0/d324e394/1/"
+alt="real time web analytics"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+</body>
+
+</html>

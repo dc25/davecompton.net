@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-11-25T13:58:03-08:00</updated><id>/feed.xml</id><title type="html">Dave Compton</title><subtitle>What I am doing, what I have done, and what I learned along the way.
+</subtitle><author><name>{&quot;email&quot;=&gt;&quot;davecompton7@gmail.com&quot;}</name><email>davecompton7@gmail.com</email></author><entry><title type="html">Note to self: VM on windows11</title><link href="/2025/09/02/note-to-self-vm-on-windows11.html" rel="alternate" type="text/html" title="Note to self: VM on windows11" /><published>2025-09-02T16:09:49-07:00</published><updated>2025-09-02T16:09:49-07:00</updated><id>/2025/09/02/note-to-self--vm-on-windows11</id><content type="html" xml:base="/2025/09/02/note-to-self-vm-on-windows11.html"><![CDATA[<ul>
+  <li>After upgrading to windows 11, virtualbox no longer worked.</li>
+  <li>Spent a little time trying to fix but gave up eventually.</li>
+  <li><a href="https://askubuntu.com/questions/1415045/ubuntu-22-04-seems-to-freeze-in-virtualbox-6-1-on-windows-11">Others</a> seem to be having similar problems.</li>
+  <li>Tried disabling hyper-v per: <a href="https://www.xda-developers.com/disable-hyper-v-windows-11/">disable hyper-v</a> by running “Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-Hypervisor” in powershell.</li>
+  <li>Also accessed hyper-v setting through control panel.</li>
+  <li>This appeared to have disabled hyper-v (as seen in control panel) but didn’t seem to help with virtualbox.</li>
+  <li>Gave up on virtualbox and decided to try vmware.</li>
+  <li>Had to create support.broadcom.com login.</li>
+  <li>Downloaded vmware from broadcom. VMWare Workstation Pro for windows under free downloads.</li>
+  <li>Spent some time trying to get bridged networking to work but eventually gave up and decided to fall back on NAT (which actually should be fine).</li>
+  <li>per:    <a href="https://askubuntu.com/a/1399909/1176839">This askubuntu answer</a>  was able to mount from windows host using : “sudo mount -t fuse.vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other”</li>
+  <li>also per:    <a href="https://askubuntu.com/a/1399909/1176839">This askubuntu answer</a>  use “.host:/   /mnt/hgfs   fuse.vmhgfs-fuse    auto,allow_other,uid=1000,gid=1000    0   0” in /etc/fstab to get mount to persist.</li>
+  <li>Files created with this mount are owned by root.   Still needs work.</li>
+  <li>Left hyper-v off for now.   Is this a problem?</li>
+  <li>Installed open-vm-tools as follows: “sudo apt install open-vm-tools open-vm-tools-desktop” per : https://knowledge.broadcom.com/external/article?legacyId=2073803</li>
+</ul>]]></content><author><name>{&quot;email&quot;=&gt;&quot;davecompton7@gmail.com&quot;}</name><email>davecompton7@gmail.com</email></author><summary type="html"><![CDATA[After upgrading to windows 11, virtualbox no longer worked. Spent a little time trying to fix but gave up eventually. Others seem to be having similar problems. Tried disabling hyper-v per: disable hyper-v by running “Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-Hypervisor” in powershell. Also accessed hyper-v setting through control panel. This appeared to have disabled hyper-v (as seen in control panel) but didn’t seem to help with virtualbox. Gave up on virtualbox and decided to try vmware. Had to create support.broadcom.com login. Downloaded vmware from broadcom. VMWare Workstation Pro for windows under free downloads. Spent some time trying to get bridged networking to work but eventually gave up and decided to fall back on NAT (which actually should be fine). per: This askubuntu answer was able to mount from windows host using : “sudo mount -t fuse.vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other” also per: This askubuntu answer use “.host:/ /mnt/hgfs fuse.vmhgfs-fuse auto,allow_other,uid=1000,gid=1000 0 0” in /etc/fstab to get mount to persist. Files created with this mount are owned by root. Still needs work. Left hyper-v off for now. Is this a problem? Installed open-vm-tools as follows: “sudo apt install open-vm-tools open-vm-tools-desktop” per : https://knowledge.broadcom.com/external/article?legacyId=2073803]]></summary></entry><entry><title type="html">Notes about tteck dashboards for proxmox</title><link href="/2024/03/02/notes-about-tteck-dashboards-for-proxmox.html" rel="alternate" type="text/html" title="Notes about tteck dashboards for proxmox" /><published>2024-03-02T09:03:56-08:00</published><updated>2024-03-02T09:03:56-08:00</updated><id>/2024/03/02/notes-about-tteck-dashboards-for-proxmox</id><content type="html" xml:base="/2024/03/02/notes-about-tteck-dashboards-for-proxmox.html"><![CDATA[<p>I’m trying out some of the “dashboards” for proxmox listed under the tteck scripts collection.   I’ll update this page as I go.</p>
+
+<hr />
+<h1 id="mafl-lxc">Mafl LXC</h1>
+
+<p>Installation went smoothly.   Access was in browser via port 3000. This results in a page that looks like this:</p>
+
+<p><img src="https://github.com/dc25/davecompton.net_images/raw/main/mafl_home_page.jpg" alt="image from github" /></p>
+
+<p>As far as I can tell, each of these icons is a link that by default is not enabled.   I looked briefly at the documentation to find out what it takes to get them working but got impatient and moved on.</p>
+
+<hr />
+<h1 id="heimdall-dashboard-lxc">Heimdall Dashboard LXC</h1>
+
+<p>Again, install went smoothly.   Access through port 7990, Used the builtin gui to add a couple of “apps” resulting in this:</p>
+
+<p><img src="https://github.com/dc25/davecompton.net_images/raw/main/heimdall_dashboard.jpg" alt="image from github" /></p>
+
+<p>These are clickable and I configured them to link to the plex and pi-hole web interfaces.</p>
+
+<p>I’m starting to get the impression that a “dashboard” is just a fancy collection of bookmarks.</p>
+
+<hr />
+<h1 id="homepage-lxc">Homepage LXC</h1>
+
+<p>Again, install went without a hitch.   Access using browser at port# 3000.   Configure using scripts at /opt/homepage/config . I added plex and LMS to get a setup like this:</p>
+
+<p><img src="https://github.com/dc25/davecompton.net_images/raw/main/homepage_dashboard.jpg" alt="image from github" /></p>
+
+<hr />
+<h1 id="thoughts">Thoughts</h1>
+
+<p>These seem pretty easy to install and configure but I don’t think they buy you all that much.   I’ll probably stick with plain old bookmarks.</p>]]></content><author><name>{&quot;email&quot;=&gt;&quot;davecompton7@gmail.com&quot;}</name><email>davecompton7@gmail.com</email></author><summary type="html"><![CDATA[I’m trying out some of the “dashboards” for proxmox listed under the tteck scripts collection. I’ll update this page as I go.]]></summary></entry><entry><title type="html">Windows sshd notes</title><link href="/2023/12/14/windows-sshd-notes.html" rel="alternate" type="text/html" title="Windows sshd notes" /><published>2023-12-14T05:14:27-08:00</published><updated>2023-12-14T05:14:27-08:00</updated><id>/2023/12/14/windows-sshd-notes</id><content type="html" xml:base="/2023/12/14/windows-sshd-notes.html"><![CDATA[<p>Yesterday I tried (but failed) to get sshd working on my windows machine.   Here are some notes to self in case I ever go this route again.
+I’ve been using <a href="https://chocolatey.org/install">choco</a> to install windows software when possible.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ choco install openssh
+Chocolatey v2.2.2
+3 validations performed. 2 success(es), 1 warning(s), and 0 error(s).
+
+Validation Warnings:
+ - System Cache directory is not locked down to administrators.
+   Remove the directory 'C:\ProgramData\ChocolateyHttpCache' to have
+   Chocolatey CLI create it with the proper permissions.
+
+Installing the following packages:
+openssh
+By installing, you accept licenses for the packages.
+Progress: Downloading openssh 8.0.0.1... 100%
+
+openssh v8.0.0.1 [Approved]
+openssh package files install completed. Performing other installation steps.
+The package openssh wants to run 'chocolateyinstall.ps1'.
+Note: If you don't run this script, the installation will fail.
+Note: To confirm automatically next time, use '-y' or consider:
+choco feature enable -n allowGlobalConfirmation
+Do you want to run the script?([Y]es/[A]ll - yes to all/[N]o/[P]rint): Y
+
+Running on: Windows 10 Pro, (Professional)
+Windows Version: 10.0.19045
+
+************************************************************************************
+************************************************************************************
+This package is a Universal Installer and can ALSO install Win32-OpenSSH on
+Nano, Server Core, Docker Containers and more WITHOUT using Chocolatey.
+
+.... (more output)
+</code></pre></div></div>
+
+<p>Now, per <a href="https://github.com/PowerShell/Win32-OpenSSH/wiki/Install-Win32-OpenSSH">OpenSSH instructions</a> , open port 22 , install openssh as a service, and start the service</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dc202@DESKTOP-MAR8MAD /cygdrive/c
+$ cd 'c:/Program Files/OpenSSH-Win64'
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files/OpenSSH-Win64
+$ netsh advfirewall firewall add rule name=sshd dir=in action=allow protocol=TCP localport=22
+Ok.
+
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files/OpenSSH-Win64
+$ powershell.exe -ExecutionPolicy Bypass -File install-sshd.ps1
+[SC] SetServiceObjectSecurity SUCCESS
+[SC] ChangeServiceConfig2 SUCCESS
+[SC] ChangeServiceConfig2 SUCCESS
+sshd and ssh-agent services successfully installed
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files/OpenSSH-Win64
+$ net start sshd
+The OpenSSH SSH Server service is starting.
+The OpenSSH SSH Server service was started successfully.
+
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files/OpenSSH-Win64
+$
+</code></pre></div></div>
+
+<p>That seems to be <em>almost</em> enough but when I try to log in remotely, ssh rejects my password:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dave@vbox:/tmp$ ssh -l dc202 192.168.8.146
+dc202@192.168.8.146's password:
+Permission denied, please try again.
+dc202@192.168.8.146's password:
+</code></pre></div></div>
+
+<p>At this point I searched online a little for a solution but eventually gave up (for now).</p>
+
+<p>I restored the machine to its previous state.   Thanks to <a href="https://superuser.com/a/1237985">this superuser.com answer from “Vomit IT - Chunky Mess Style”</a> for telling how to undo the firewall changes.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files
+$ net stop sshd
+
+The OpenSSH SSH Server service was stopped successfully.
+
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files
+$ netsh advfirewall firewall show rule status=enabled name=all | grep sshd
+Rule Name:                            sshd
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files
+$ netsh advfirewall firewall delete rule name="sshd"
+
+Deleted 1 rule(s).
+Ok.
+
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files
+$ cd 'c:/Program Files/OpenSSH-Win64'/
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files/OpenSSH-Win64
+$ powershell.exe -ExecutionPolicy Bypass -File uninstall-sshd.ps1
+sshd successfully uninstalled
+ssh-agent successfully uninstalled
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files/OpenSSH-Win64
+$ cd ..
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files
+$ choco uninstall openssh
+Chocolatey v2.2.2
+3 validations performed. 2 success(es), 1 warning(s), and 0 error(s).
+
+dc202@DESKTOP-MAR8MAD /cygdrive/c/Program Files
+$ rm -rf OpenSSH-Win64/
+</code></pre></div></div>
+
+<p>If anyone reads this and happens to know what the missing link is to get logins working, please let me know.</p>]]></content><author><name>{&quot;email&quot;=&gt;&quot;davecompton7@gmail.com&quot;}</name><email>davecompton7@gmail.com</email></author><summary type="html"><![CDATA[Yesterday I tried (but failed) to get sshd working on my windows machine. Here are some notes to self in case I ever go this route again. I’ve been using choco to install windows software when possible.]]></summary></entry><entry><title type="html">RSS “tricks” to access various sources (reddit, twitter, etc)</title><link href="/2023/03/31/note-to-self-rss-for-stack-overflow-and-reddit.html" rel="alternate" type="text/html" title="RSS “tricks” to access various sources (reddit, twitter, etc)" /><published>2023-03-31T06:31:01-07:00</published><updated>2023-03-31T06:31:01-07:00</updated><id>/2023/03/31/note-to-self--rss-for-stack-overflow-and-reddit</id><content type="html" xml:base="/2023/03/31/note-to-self-rss-for-stack-overflow-and-reddit.html"><![CDATA[<p>Here are some RSS tricks (I’m sure there’s a better word but that will do for now).   I’ll add more as I learn about them.</p>
+
+<ul>
+  <li>
+    <p>For reddit.com/r/rust RSS feed, use : www.reddit.com/r/rust/new/.rss</p>
+  </li>
+  <li>
+    <p>For stack overflow questions tagged rust use: https://stackoverflow.com/feeds/tag/rust?sort=newest</p>
+  </li>
+  <li>
+    <p>For google alerts, create the alert via alerts.google.com, edit the alert to “Deliver to” RSS feed, then follow the RSS icon for the new alert.</p>
+  </li>
+  <li>
+    <p>For mastodon, use, for example, https://mathstodon.xyz/@johncarlosbaez.rss</p>
+  </li>
+  <li>
+    <p>For twitter, use a nitter instance.  For example: https://nitter.privacydev.net/nytimes/rss .   Twitter seems to be a moving target.</p>
+    <ul>
+      <li>As of 8/21/2023, the twitter/nitter technique here worked but it may not last.</li>
+      <li>As of 09/01/2023 it’s broken.</li>
+      <li>If anyone reading this knows a way to view a twitter feed as rss, please let me know.</li>
+    </ul>
+  </li>
+</ul>]]></content><author><name>{&quot;email&quot;=&gt;&quot;davecompton7@gmail.com&quot;}</name><email>davecompton7@gmail.com</email></author><summary type="html"><![CDATA[Here are some RSS tricks (I’m sure there’s a better word but that will do for now). I’ll add more as I learn about them.]]></summary></entry><entry><title type="html">Proof of Concept: image hosting</title><link href="/2023/02/05/proof-of-concept-image-hosting.html" rel="alternate" type="text/html" title="Proof of Concept: image hosting" /><published>2023-02-05T06:30:31-08:00</published><updated>2023-02-05T06:30:31-08:00</updated><id>/2023/02/05/proof-of-concept--image-hosting</id><content type="html" xml:base="/2023/02/05/proof-of-concept-image-hosting.html"><![CDATA[<p>There are a number of sites that will host images for free.   Some of these are demonstrated below.   Remember these are free solutions that may or may not be maintained so it’s probably a good idea to keep local copies of all your photos (i.e. don’t use these for storage - just for display).   I may add to the collection if I learn about other hosting options.</p>
+
+<hr />
+<h1 id="dropbox">Dropbox:</h1>
+<p><img src="https://www.dropbox.com/s/ffmsl8yel52wtbt/bird.jpg?raw=1" alt="image from dropbox" />
+<a href="https://www.dropboxforum.com/t5/Create-upload-and-share/How-do-I-embed-images-with-a-direct-link-from-Dropbox/td-p/245432">How to get dropbox image url.</a></p>
+
+<hr />
+<h1 id="flickr">Flickr:</h1>
+<p><img src="https://live.staticflickr.com/65535/52670424446_5abbf3bb04_o.jpg" alt="image from flickr" />
+<a href="https://www.flickrhelp.com/hc/en-us/articles/4404078014356-Share-or-Embed-Flickr-Photos-or-Albums">How to get flickr image url.</a></p>
+
+<hr />
+<h1 id="github">github:</h1>
+<p><img src="https://github.com/dc25/birdphoto/raw/main/bird.jpg" alt="image from github" />
+I got the image link by :</p>
+<ul>
+  <li>Uploading the image to <a href="https://github.com/dc25/birdphoto">a github repository</a>.</li>
+  <li>Clicking on the <a href="https://github.com/dc25/birdphoto/blob/main/bird.jpg">image in the repository</a></li>
+  <li>Right clicking on the download link and selecting “Copy link address”</li>
+</ul>
+
+<hr />
+<h1 id="imgurcom">imgur.com:</h1>
+<p><img src="https://i.imgur.com/VJtlHBD.jpg" alt="image from imgur.com" />
+Just click on the uploaded image in imgur.com and use the “Direct Link”</p>
+
+<hr />
+<h1 id="imgbbcom">imgbb.com:</h1>
+<p><img src="https://i.ibb.co/sw3Zpzq/bird.jpg" alt="image from imgbb.com" />
+use the “Direct links” option in the “Embed codes” menu for the uploated image in imgbb.com</p>
+
+<hr />
+<p>Below is the markup for <em>this</em> page, included to show how to embed the images.</p>
+
+<div class="code-container" style="height:800px">
+  <iframe class="code-text" src="https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2Fdavecompton.net%2Fmaster%2F_posts%2F2023-02-05-proof-of-concept--image-hosting.markdown"></iframe>
+  <hr />
+  <div class="code-bar">
+	  <a href="https://github.com/dc25/davecompton.net/blob/master/_posts/2023-02-05-proof-of-concept--image-hosting.markdown" class="code-link">2023-02-05-proof-of-concept--image-hosting.markdown</a>
+	  <a href="https://raw.githubusercontent.com/dc25/davecompton.net/master/_posts/2023-02-05-proof-of-concept--image-hosting.markdown" class="code-raw-link">view raw</a>
+  </div>
+</div>
+<p><br /></p>]]></content><author><name>{&quot;email&quot;=&gt;&quot;davecompton7@gmail.com&quot;}</name><email>davecompton7@gmail.com</email></author><summary type="html"><![CDATA[There are a number of sites that will host images for free. Some of these are demonstrated below. Remember these are free solutions that may or may not be maintained so it’s probably a good idea to keep local copies of all your photos (i.e. don’t use these for storage - just for display). I may add to the collection if I learn about other hosting options.]]></summary></entry><entry><title type="html">Changing the default grub selection (almost painless)</title><link href="/2022/11/07/changing-the-default-grub-selection-almost-painless.html" rel="alternate" type="text/html" title="Changing the default grub selection (almost painless)" /><published>2022-11-07T07:05:06-08:00</published><updated>2022-11-07T07:05:06-08:00</updated><id>/2022/11/07/changing-the-default-grub-selection--almost-painless-</id><content type="html" xml:base="/2022/11/07/changing-the-default-grub-selection-almost-painless.html"><![CDATA[<p>A couple months ago I added Linux Mint as a boot option on my work computer.   This morning after booting into Mint for the first time in months, updating with apt, and rebooting I found that my grub boot menu had been reordered with Mint as default.  Because I rarely boot into Mint, I wanted to change the default boot selection.</p>
+
+<p>Later on, working in Ubuntu now, I searched the web and found <a href="https://askubuntu.com/a/110738">these instructions</a> that say to</p>
+<ul>
+  <li>change /etc/default/grub to specify a default</li>
+  <li>run update-grub.</li>
+</ul>
+
+<p>I did this but nothing changed.</p>
+
+<p>The reason that nothing changed is that Mint had taken ownership of the boot process.   After booting into Mint and making the same changes, the default boot option was updated as expected.</p>
+
+<p>Looking back, this should have been obvious but it cost me a few minutes.</p>
+
+<p>At some point, I expect that an Ubuntu update will again rewrite the grub configuration and I’ll have to go through the process again on the Ubuntu side.</p>]]></content><author><name>{&quot;email&quot;=&gt;&quot;davecompton7@gmail.com&quot;}</name><email>davecompton7@gmail.com</email></author><summary type="html"><![CDATA[A couple months ago I added Linux Mint as a boot option on my work computer. This morning after booting into Mint for the first time in months, updating with apt, and rebooting I found that my grub boot menu had been reordered with Mint as default. Because I rarely boot into Mint, I wanted to change the default boot selection.]]></summary></entry><entry><title type="html">Another Logging Wrapper For Cron Jobs</title><link href="/2022/10/17/another-logging-wrapper-for-cron-jobs.html" rel="alternate" type="text/html" title="Another Logging Wrapper For Cron Jobs" /><published>2022-10-17T13:01:12-07:00</published><updated>2022-10-17T13:01:12-07:00</updated><id>/2022/10/17/another-logging-wrapper-for-cron-jobs</id><content type="html" xml:base="/2022/10/17/another-logging-wrapper-for-cron-jobs.html"><![CDATA[<p>This logging wrapper, written in perl, has a few improvements on the previous one:</p>
+
+<ul>
+  <li>Command line option: “–skip-repeats” to prevent saving results identical to previous run.</li>
+  <li>Command line option: “–path-head” for specification of top level directory for results.  Defaults to command name.</li>
+  <li>Command line option: “–path-resolution” for specification of resolution of directory creation for output files.   Defaults to “year”</li>
+  <li>Pushes results to remote git repository.</li>
+  <li>Partitions the output files by year directory.   The github web interface  complains about more than 1000 files in a directory.</li>
+  <li>Implemented in two files: loggedcron.pl and gitsweep.pl .   The first, loggedcron.pl runs a command and saves the output in ~/cron_logs .   The second, gitsweep.pl, pushes the contents of ~/cron_logs into a remote git repo.</li>
+</ul>
+
+<div class="code-container" style="height:1600px">
+  <iframe class="code-text" src="https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2Fstartup%2Fmaster%2Fbin%2Floggedcron.pl"></iframe>
+  <hr />
+  <div class="code-bar">
+	  <a href="https://github.com/dc25/startup/blob/master/bin/loggedcron.pl" class="code-link">loggedcron.pl</a>
+	  <a href="https://raw.githubusercontent.com/dc25/startup/master/bin/loggedcron.pl" class="code-raw-link">view raw</a>
+  </div>
+</div>
+<p><br /></p>
+
+<div class="code-container" style="height:500px">
+  <iframe class="code-text" src="https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2Fstartup%2Fmaster%2Fbin%2Fgitsweep.pl"></iframe>
+  <hr />
+  <div class="code-bar">
+	  <a href="https://github.com/dc25/startup/blob/master/bin/gitsweep.pl" class="code-link">gitsweep.pl</a>
+	  <a href="https://raw.githubusercontent.com/dc25/startup/master/bin/gitsweep.pl" class="code-raw-link">view raw</a>
+  </div>
+</div>
+<p><br /></p>
+
+<p>So, for example, if you want a record of how much free space you have every night at 1:02, enter the following in your crontab (with appropriate changes of course):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>02 01 * * * /home/dave/bin/loggedcron.pl df -k
+*  *  * * * /home/dave/bin/gitsweep.pl
+</code></pre></div></div>]]></content><author><name>{&quot;email&quot;=&gt;&quot;davecompton7@gmail.com&quot;}</name><email>davecompton7@gmail.com</email></author><summary type="html"><![CDATA[This logging wrapper, written in perl, has a few improvements on the previous one:]]></summary></entry><entry><title type="html">A Simple Logging Wrapper For Cron Jobs</title><link href="/2022/07/18/a-simple-logging-wrapper-for-cron-jobs.html" rel="alternate" type="text/html" title="A Simple Logging Wrapper For Cron Jobs" /><published>2022-07-18T14:06:31-07:00</published><updated>2022-07-18T14:06:31-07:00</updated><id>/2022/07/18/a-simple-logging-wrapper-for-cron-jobs</id><content type="html" xml:base="/2022/07/18/a-simple-logging-wrapper-for-cron-jobs.html"><![CDATA[<p>For preserving output from cron jobs: <a href="https://github.com/dc25/loggedcron">https://github.com/dc25/loggedcron</a></p>
+
+<p>In all its glory:</p>
+
+<div class="code-container" style="height:240px">
+  <iframe class="code-text" src="https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2Floggedcron%2Fmain%2Floggedcron.bash"></iframe>
+  <hr />
+  <div class="code-bar">
+	  <a href="https://github.com/dc25/loggedcron/blob/main/loggedcron.bash" class="code-link">loggedcron.bash</a>
+	  <a href="https://raw.githubusercontent.com/dc25/loggedcron/main/loggedcron.bash" class="code-raw-link">view raw</a>
+  </div>
+</div>
+<p><br /></p>
+
+<p>So, for example, if you want a record of how much free space you have every night at 1:02, enter the following in your crontab (with appropriate changes of course):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>02 01 * * * /home/dave/bin/loggedcron.bash df -k
+</code></pre></div></div>]]></content><author><name>{&quot;email&quot;=&gt;&quot;davecompton7@gmail.com&quot;}</name><email>davecompton7@gmail.com</email></author><summary type="html"><![CDATA[For preserving output from cron jobs: https://github.com/dc25/loggedcron]]></summary></entry><entry><title type="html">A Gnome extension to show IP address on desktop</title><link href="/2022/05/31/a-gnome-extension-to-show-ip-address-on-desktop.html" rel="alternate" type="text/html" title="A Gnome extension to show IP address on desktop" /><published>2022-05-31T11:07:27-07:00</published><updated>2022-05-31T11:07:27-07:00</updated><id>/2022/05/31/a-gnome-extension-to-show-ip-address-on-desktop</id><content type="html" xml:base="/2022/05/31/a-gnome-extension-to-show-ip-address-on-desktop.html"><![CDATA[<p><strong>NOTE:  As of <a href="https://gjs.guide/extensions/upgrading/gnome-shell-45.html#esm">GNOME Shell 45</a> , this no longer works.  I spent a few hours trying to update it but decided it was not worth the effort.   My guess is that it <em>could</em> be fixed but it’s not that important to me and I don’t think anyone else is using it.   If someone reading this figures out how to get it working again, please let me know what it takes.</strong></p>
+
+<p>Here’s a way to configure Gnome to display some useful information on the Ubuntu Gnome desktop.  I use a variety of virtual machines and it’s nice to be able to easily tell which machine I’m dealing with at any one time as well as having the ip address for ssh access to that machine.  I use this extension to display the machine name and ip addresses.   I also show some other information but that’s easy to configure so if you use this extension, you can decide.</p>
+
+<p>The code resides <a href="https://github.com/dc25/cmd_wallpaper">on github</a> .   It consists of less than 50 lines of javascript and a few lines of json.  Most of the code came from the answer to <a href="https://stackoverflow.com/questions/29816027/a-simple-way-to-show-my-hostname-ip-in-gnome-panel-or-on-my-desktop-background">this stackoverflow question</a> .   I made a couple minor modifications.</p>
+
+<p>Usage instructions are in the README for the project. They amount to copying the project to a path in your local machine and specifying a program for the extension to run.  I use the following shell script:</p>
+
+<div class="code-container" style="height:400px">
+  <iframe class="code-text" src="https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2Fcmd_wallpaper%2Fmain%2Fdesktop_notes.sh"></iframe>
+  <hr />
+  <div class="code-bar">
+	  <a href="https://github.com/dc25/cmd_wallpaper/blob/main/desktop_notes.sh" class="code-link">desktop_notes.sh</a>
+	  <a href="https://raw.githubusercontent.com/dc25/cmd_wallpaper/main/desktop_notes.sh" class="code-raw-link">view raw</a>
+  </div>
+</div>
+<p><br /></p>
+
+<p>This results in a desktop that looks like this:</p>
+
+<p><img src="/assets/annotated.jpg" alt="Desktop Image" /></p>]]></content><author><name>{&quot;email&quot;=&gt;&quot;davecompton7@gmail.com&quot;}</name><email>davecompton7@gmail.com</email></author><summary type="html"><![CDATA[NOTE: As of GNOME Shell 45 , this no longer works. I spent a few hours trying to update it but decided it was not worth the effort. My guess is that it could be fixed but it’s not that important to me and I don’t think anyone else is using it. If someone reading this figures out how to get it working again, please let me know what it takes.]]></summary></entry><entry><title type="html">Rust/GTK4/ColumnView</title><link href="/2022/05/01/rust-gtk4-columnview.html" rel="alternate" type="text/html" title="Rust/GTK4/ColumnView" /><published>2022-05-01T21:40:01-07:00</published><updated>2022-05-01T21:40:01-07:00</updated><id>/2022/05/01/rust-gtk4-columnview</id><content type="html" xml:base="/2022/05/01/rust-gtk4-columnview.html"><![CDATA[<p>I couldn’t find any Rust/GTK4 sample code showing how to use ColumnView so I wrote one.</p>
+
+<ul>
+  <li>Two columns</li>
+  <li>100000 rows</li>
+  <li>Model is StringList containing StringObject(s) - both defined by GTK4</li>
+  <li>Deletes row from model when user double clicks on it.</li>
+  <li>Tested on Linux and Windows</li>
+</ul>
+
+<p>If you read this and have any questions/comments, please let me know.</p>
+
+<div class="code-container" style="height:1400px">
+  <iframe class="code-text" src="https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2Fgtk_columnview%2Fmain%2Fsrc%2Fmain.rs"></iframe>
+  <hr />
+  <div class="code-bar">
+	  <a href="https://github.com/dc25/gtk_columnview/blob/main/src/main.rs" class="code-link">main.rs</a>
+	  <a href="https://raw.githubusercontent.com/dc25/gtk_columnview/main/src/main.rs" class="code-raw-link">view raw</a>
+  </div>
+</div>
+<p><br /></p>]]></content><author><name>{&quot;email&quot;=&gt;&quot;davecompton7@gmail.com&quot;}</name><email>davecompton7@gmail.com</email></author><summary type="html"><![CDATA[I couldn’t find any Rust/GTK4 sample code showing how to use ColumnView so I wrote one.]]></summary></entry></feed>

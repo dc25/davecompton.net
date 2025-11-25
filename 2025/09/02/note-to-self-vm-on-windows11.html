@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Note to self: VM on windows11 | Dave Compton</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Note to self: VM on windows11" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="After upgrading to windows 11, virtualbox no longer worked. Spent a little time trying to fix but gave up eventually. Others seem to be having similar problems. Tried disabling hyper-v per: disable hyper-v by running “Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-Hypervisor” in powershell. Also accessed hyper-v setting through control panel. This appeared to have disabled hyper-v (as seen in control panel) but didn’t seem to help with virtualbox. Gave up on virtualbox and decided to try vmware. Had to create support.broadcom.com login. Downloaded vmware from broadcom. VMWare Workstation Pro for windows under free downloads. Spent some time trying to get bridged networking to work but eventually gave up and decided to fall back on NAT (which actually should be fine). per: This askubuntu answer was able to mount from windows host using : “sudo mount -t fuse.vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other” also per: This askubuntu answer use “.host:/ /mnt/hgfs fuse.vmhgfs-fuse auto,allow_other,uid=1000,gid=1000 0 0” in /etc/fstab to get mount to persist. Files created with this mount are owned by root. Still needs work. Left hyper-v off for now. Is this a problem? Installed open-vm-tools as follows: “sudo apt install open-vm-tools open-vm-tools-desktop” per : https://knowledge.broadcom.com/external/article?legacyId=2073803" />
+<meta property="og:description" content="After upgrading to windows 11, virtualbox no longer worked. Spent a little time trying to fix but gave up eventually. Others seem to be having similar problems. Tried disabling hyper-v per: disable hyper-v by running “Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-Hypervisor” in powershell. Also accessed hyper-v setting through control panel. This appeared to have disabled hyper-v (as seen in control panel) but didn’t seem to help with virtualbox. Gave up on virtualbox and decided to try vmware. Had to create support.broadcom.com login. Downloaded vmware from broadcom. VMWare Workstation Pro for windows under free downloads. Spent some time trying to get bridged networking to work but eventually gave up and decided to fall back on NAT (which actually should be fine). per: This askubuntu answer was able to mount from windows host using : “sudo mount -t fuse.vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other” also per: This askubuntu answer use “.host:/ /mnt/hgfs fuse.vmhgfs-fuse auto,allow_other,uid=1000,gid=1000 0 0” in /etc/fstab to get mount to persist. Files created with this mount are owned by root. Still needs work. Left hyper-v off for now. Is this a problem? Installed open-vm-tools as follows: “sudo apt install open-vm-tools open-vm-tools-desktop” per : https://knowledge.broadcom.com/external/article?legacyId=2073803" />
+<meta property="og:site_name" content="Dave Compton" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-09-02T16:09:49-07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Note to self: VM on windows11" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-09-02T16:09:49-07:00","datePublished":"2025-09-02T16:09:49-07:00","description":"After upgrading to windows 11, virtualbox no longer worked. Spent a little time trying to fix but gave up eventually. Others seem to be having similar problems. Tried disabling hyper-v per: disable hyper-v by running “Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-Hypervisor” in powershell. Also accessed hyper-v setting through control panel. This appeared to have disabled hyper-v (as seen in control panel) but didn’t seem to help with virtualbox. Gave up on virtualbox and decided to try vmware. Had to create support.broadcom.com login. Downloaded vmware from broadcom. VMWare Workstation Pro for windows under free downloads. Spent some time trying to get bridged networking to work but eventually gave up and decided to fall back on NAT (which actually should be fine). per: This askubuntu answer was able to mount from windows host using : “sudo mount -t fuse.vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other” also per: This askubuntu answer use “.host:/ /mnt/hgfs fuse.vmhgfs-fuse auto,allow_other,uid=1000,gid=1000 0 0” in /etc/fstab to get mount to persist. Files created with this mount are owned by root. Still needs work. Left hyper-v off for now. Is this a problem? Installed open-vm-tools as follows: “sudo apt install open-vm-tools open-vm-tools-desktop” per : https://knowledge.broadcom.com/external/article?legacyId=2073803","headline":"Note to self: VM on windows11","mainEntityOfPage":{"@type":"WebPage","@id":"/2025/09/02/note-to-self-vm-on-windows11.html"},"url":"/2025/09/02/note-to-self-vm-on-windows11.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Dave Compton" />
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Dave Compton</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Note to self: VM on windows11</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2025-09-02T16:09:49-07:00" itemprop="datePublished">
+        Sep 2, 2025
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul>
+  <li>After upgrading to windows 11, virtualbox no longer worked.</li>
+  <li>Spent a little time trying to fix but gave up eventually.</li>
+  <li><a href="https://askubuntu.com/questions/1415045/ubuntu-22-04-seems-to-freeze-in-virtualbox-6-1-on-windows-11">Others</a> seem to be having similar problems.</li>
+  <li>Tried disabling hyper-v per: <a href="https://www.xda-developers.com/disable-hyper-v-windows-11/">disable hyper-v</a> by running “Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-Hypervisor” in powershell.</li>
+  <li>Also accessed hyper-v setting through control panel.</li>
+  <li>This appeared to have disabled hyper-v (as seen in control panel) but didn’t seem to help with virtualbox.</li>
+  <li>Gave up on virtualbox and decided to try vmware.</li>
+  <li>Had to create support.broadcom.com login.</li>
+  <li>Downloaded vmware from broadcom. VMWare Workstation Pro for windows under free downloads.</li>
+  <li>Spent some time trying to get bridged networking to work but eventually gave up and decided to fall back on NAT (which actually should be fine).</li>
+  <li>per:    <a href="https://askubuntu.com/a/1399909/1176839">This askubuntu answer</a>  was able to mount from windows host using : “sudo mount -t fuse.vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other”</li>
+  <li>also per:    <a href="https://askubuntu.com/a/1399909/1176839">This askubuntu answer</a>  use “.host:/   /mnt/hgfs   fuse.vmhgfs-fuse    auto,allow_other,uid=1000,gid=1000    0   0” in /etc/fstab to get mount to persist.</li>
+  <li>Files created with this mount are owned by root.   Still needs work.</li>
+  <li>Left hyper-v off for now.   Is this a problem?</li>
+  <li>Installed open-vm-tools as follows: “sudo apt install open-vm-tools open-vm-tools-desktop” per : https://knowledge.broadcom.com/external/article?legacyId=2073803</li>
+</ul>
+
+
+  </div><a class="u-url" href="/2025/09/02/note-to-self-vm-on-windows11.html" hidden></a>
+</article>
+
+      </div>
+    </main>
+
+    <div class="page-content">
+      <div class="wrapper">
+        
+
+      </div>
+    </div><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <path d="M12.8 16C12.8 8.978 7.022 3.2 0 3.2V0c8.777 0 16 7.223 16 16h-3.2zM2.194
+                11.61c1.21 0 2.195.985 2.195 2.196 0 1.21-.99 2.194-2.2 2.194C.98 16 0 15.017 0
+                13.806c0-1.21.983-2.195 2.194-2.195zM10.606
+                16h-3.11c0-4.113-3.383-7.497-7.496-7.497v-3.11c5.818 0 10.606 4.79 10.606 10.607z"
+              />
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+        <ul class="contact-list">
+          <li><a class="u-email" href="mailto:davecompton7@gmail.com">davecompton7@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>What I am doing, what I have done, and what I learned along the way.
+</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+<!-- Default Statcounter code for Davecompton.net
+https://davecompton.net -->
+<script type="text/javascript">
+var sc_project=11610177; 
+var sc_invisible=1; 
+var sc_security="d324e394"; 
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="real time web
+analytics" href="https://statcounter.com/"
+target="_blank"><img class="statcounter"
+src="https://c.statcounter.com/11610177/0/d324e394/1/"
+alt="real time web analytics"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+</body>
+
+</html>

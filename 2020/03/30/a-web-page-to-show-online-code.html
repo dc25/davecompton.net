@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>A Web Page to Show Online Code | Dave Compton</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="A Web Page to Show Online Code" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="NOTE: This project is in flux. As of now (2020-04-07) it works but I may be making changes in the near future. If that happens, I will update this page accordingly." />
+<meta property="og:description" content="NOTE: This project is in flux. As of now (2020-04-07) it works but I may be making changes in the near future. If that happens, I will update this page accordingly." />
+<meta property="og:site_name" content="Dave Compton" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-30T11:58:32-07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="A Web Page to Show Online Code" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2020-03-30T11:58:32-07:00","datePublished":"2020-03-30T11:58:32-07:00","description":"NOTE: This project is in flux. As of now (2020-04-07) it works but I may be making changes in the near future. If that happens, I will update this page accordingly.","headline":"A Web Page to Show Online Code","mainEntityOfPage":{"@type":"WebPage","@id":"/2020/03/30/a-web-page-to-show-online-code.html"},"url":"/2020/03/30/a-web-page-to-show-online-code.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Dave Compton" />
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Dave Compton</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">A Web Page to Show Online Code</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-03-30T11:58:32-07:00" itemprop="datePublished">
+        Mar 30, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><strong>NOTE: This project is in flux.   As of now (2020-04-07) it works but I may be making changes in the near future.  If that happens, I will update this page accordingly.</strong></p>
+
+<p><strong>In particular, the helper site, “https://dc25.github.io/showCode” may also change and, if you use that link directly, in the same way that I have here, your site may stop working.   For this reason, I suggest making and using your own copy of that helper site.</strong></p>
+
+<hr />
+
+<p>A few months back I found myself wanting to discuss (in this blog) some code hosted on github .   How could I display the code in the blog?   I could have used the jekyll highlight tag and inlined the code but then if the actual code changed, the inlined version would be out of date. There are a couple ways to include the content a github “gist” in a jekyll blog but that also could would need to be kept up to date.</p>
+
+<p>At first I tried to inline the raw github version of the code of interest but that fails because xframe options are set to deny such usage.</p>
+
+<p>To make this work, I created a webpage that would retrieve the content of the url hosting the code and then display it.  The web page is currently hosted at “https://dc25.github.io/showCode” and it expects an encoded url as argument with the id “codeURL”.   This is a static site that does not depend on a backend server.</p>
+
+<p>The code displayed will be highlighted using <a href="https://github.com/google/code-prettify">code prettify by google</a>.</p>
+
+<p>So, for example, clicking on this link …  <a href="https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2FshowCode%2Fmaster%2Fshow.ts">
+https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2FshowCode%2Fmaster%2Fshow.ts
+</a> will bring up a page showing typescript code that the showCode site uses to fetch and display online code.</p>
+
+<p>Or (as shown below) the same web page can be embedded in another page using an iframe.   I am using some html and css to decorate the iframe.</p>
+
+<div class="code-container" style="height:460px">
+  <iframe class="code-text" src="https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2FshowCode%2Fmaster%2Fshow.ts"></iframe>
+  <hr />
+  <div class="code-bar">
+	  <a href="https://github.com/dc25/showCode/blob/master/show.ts" class="code-link">show.ts</a>
+	  <a href="https://raw.githubusercontent.com/dc25/showCode/master/show.ts" class="code-raw-link">view raw</a>
+  </div>
+</div>
+<p><br /></p>
+
+<p>Below is the markdown used to create this page (the prettifier seems to have some trouble with markdown).  This includes the javascript that helps set up the content on this page.</p>
+
+<div class="code-container" style="height:860px">
+  <iframe class="code-text" src="https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2Fdavecompton.net%2Fmaster%2F_posts%2F2020-03-30-a-web-page-to-show-online-code.markdown"></iframe>
+  <hr />
+  <div class="code-bar">
+	  <a href="https://github.com/dc25/davecompton.net/blob/master/_posts/2020-03-30-a-web-page-to-show-online-code.markdown" class="code-link">2020-03-30-a-web-page-to-show-online-code.markdown</a>
+	  <a href="https://raw.githubusercontent.com/dc25/davecompton.net/master/_posts/2020-03-30-a-web-page-to-show-online-code.markdown" class="code-raw-link">view raw</a>
+  </div>
+</div>
+<p><br /></p>
+
+<p>Here is the html included to decorate the displayed code.</p>
+
+<div class="code-container" style="height:250px">
+  <iframe class="code-text" src="https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2Fdavecompton.net%2Fmaster%2F_includes%2Fiframecode.html"></iframe>
+  <hr />
+  <div class="code-bar">
+	  <a href="https://github.com/dc25/davecompton.net/blob/master/_includes/iframecode.html" class="code-link">iframecode.html</a>
+	  <a href="https://raw.githubusercontent.com/dc25/davecompton.net/master/_includes/iframecode.html" class="code-raw-link">view raw</a>
+  </div>
+</div>
+<p><br /></p>
+
+<p>And here is the sass for the css used to style the included html.</p>
+
+<div class="code-container" style="height:500px">
+  <iframe class="code-text" src="https://dc25.github.io/showCode?codeURL=https%3A%2F%2Fraw.githubusercontent.com%2Fdc25%2Fdavecompton.net%2Fmaster%2F_sass%2F_iframecode.scss"></iframe>
+  <hr />
+  <div class="code-bar">
+	  <a href="https://github.com/dc25/davecompton.net/blob/master/_sass/_iframecode.scss" class="code-link">_iframecode.scss</a>
+	  <a href="https://raw.githubusercontent.com/dc25/davecompton.net/master/_sass/_iframecode.scss" class="code-raw-link">view raw</a>
+  </div>
+</div>
+<p><br /></p>
+
+
+  </div><a class="u-url" href="/2020/03/30/a-web-page-to-show-online-code.html" hidden></a>
+</article>
+
+      </div>
+    </main>
+
+    <div class="page-content">
+      <div class="wrapper">
+        
+    
+<div id="gh-comments">
+    <br/><br/>
+    <h6>COMMENTS</h6>
+    <div id="gh-comments-list"></div>
+</div>
+
+<script src="/js/github-comments.js"> </script>
+
+<script type="text/javascript"> 
+    DoGithubComments ( 
+        "dc25/myBlog-comments" , 
+        "9" 
+    ); 
+</script>
+
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+
+
+      </div>
+    </div><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <path d="M12.8 16C12.8 8.978 7.022 3.2 0 3.2V0c8.777 0 16 7.223 16 16h-3.2zM2.194
+                11.61c1.21 0 2.195.985 2.195 2.196 0 1.21-.99 2.194-2.2 2.194C.98 16 0 15.017 0
+                13.806c0-1.21.983-2.195 2.194-2.195zM10.606
+                16h-3.11c0-4.113-3.383-7.497-7.496-7.497v-3.11c5.818 0 10.606 4.79 10.606 10.607z"
+              />
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+        <ul class="contact-list">
+          <li><a class="u-email" href="mailto:davecompton7@gmail.com">davecompton7@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>What I am doing, what I have done, and what I learned along the way.
+</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+<!-- Default Statcounter code for Davecompton.net
+https://davecompton.net -->
+<script type="text/javascript">
+var sc_project=11610177; 
+var sc_invisible=1; 
+var sc_security="d324e394"; 
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="real time web
+analytics" href="https://statcounter.com/"
+target="_blank"><img class="statcounter"
+src="https://c.statcounter.com/11610177/0/d324e394/1/"
+alt="real time web analytics"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+</body>
+
+</html>
