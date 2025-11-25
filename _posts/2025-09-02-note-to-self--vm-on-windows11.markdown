@@ -20,4 +20,6 @@ tags:
 * per:    [This askubuntu answer](https://askubuntu.com/a/1399909/1176839)  was able to mount from windows host using : "sudo mount -t fuse.vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other"
 * Files created with this mount are owned by root.   Still needs work.
 * Left hyper-v off for now.   Is this a problem?
+* Installed open-vm-tools as follows: "sudo apt install open-vm-tools open-vm-tools-desktop" per : https://knowledge.broadcom.com/external/article?legacyId=2073803
+
 
