@@ -18,6 +18,7 @@ tags:
 * Downloaded vmware from broadcom. VMWare Workstation Pro for windows under free downloads.
 * Spent some time trying to get bridged networking to work but eventually gave up and decided to fall back on NAT (which actually should be fine).
 * per:    [This askubuntu answer](https://askubuntu.com/a/1399909/1176839)  was able to mount from windows host using : "sudo mount -t fuse.vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other"
+* also per:    [This askubuntu answer](https://askubuntu.com/a/1399909/1176839)  use ".host:/   /mnt/hgfs   fuse.vmhgfs-fuse    auto,allow_other,uid=1000,gid=1000    0   0" in /etc/fstab to get mount to persist.
 * Files created with this mount are owned by root.   Still needs work.
 * Left hyper-v off for now.   Is this a problem?
 * Installed open-vm-tools as follows: "sudo apt install open-vm-tools open-vm-tools-desktop" per : https://knowledge.broadcom.com/external/article?legacyId=2073803
