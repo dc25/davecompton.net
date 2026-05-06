@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>A flickr slideshow (with help from Elm) | Dave Compton</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="A flickr slideshow (with help from Elm)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="When I saw this ask metafilter question (“Online Photo Gallery”), I was inspired to write a web-app that would display photos from one of the photo hosting sites (flickr, google photos, etc) as a simple slideshow." />
+<meta property="og:description" content="When I saw this ask metafilter question (“Online Photo Gallery”), I was inspired to write a web-app that would display photos from one of the photo hosting sites (flickr, google photos, etc) as a simple slideshow." />
+<meta property="og:site_name" content="Dave Compton" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-09-06T12:27:15-07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="A flickr slideshow (with help from Elm)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2017-09-06T12:27:15-07:00","datePublished":"2017-09-06T12:27:15-07:00","description":"When I saw this ask metafilter question (“Online Photo Gallery”), I was inspired to write a web-app that would display photos from one of the photo hosting sites (flickr, google photos, etc) as a simple slideshow.","headline":"A flickr slideshow (with help from Elm)","mainEntityOfPage":{"@type":"WebPage","@id":"/2017/09/06/a-flickr-slideshow-with-help-from-elm.html"},"url":"/2017/09/06/a-flickr-slideshow-with-help-from-elm.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Dave Compton" />
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Dave Compton</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">A flickr slideshow (with help from Elm)</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2017-09-06T12:27:15-07:00" itemprop="datePublished">
+        Sep 6, 2017
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>When I saw <a href="http://ask.metafilter.com/313090/Online-Photo-Gallery">this ask metafilter question (“Online Photo Gallery”)</a>, I was inspired to write a web-app that would display photos from one of the photo hosting sites (flickr, google photos, etc) as a simple slideshow.</p>
+
+<p>It turns out that <a href="https://www.flickr.com/services/api/">flickr has an api</a> that lends itself well to this job .   Using the flickr api I can retrieve all the information I need to display a list of photos published by a given user (optionally limited to one album) .  This includes the description of the photo saved in flickr that I can use as a photo caption.</p>
+
+<p>My language of choice for this task was <a href="http://elm-lang.org">Elm</a>. Using the <a href="http://package.elm-lang.org/packages/elm-lang/core/latest/Json-Decode">decoder functionality that comes with Elm</a>, it’s easy to work with rest api calls that return JSON data.  I used <a href="http://package.elm-lang.org/packages/evancz/url-parser/2.0.1/UrlParser">Evan Czaplicki’s url-parser library</a> to read flickr user and album names as routing parameters in the URL.</p>
+
+<p>The web-app is published on github.  I created a <a href="https://www.flickr.com/people/151986531@N04/">flickr user: “dave20477”</a> for demo purposes so clicking on this link …</p>
+
+<p><a href="https://dc25.github.io/askMetaGallery/#/dave20477">https://dc25.github.io/askMetaGallery/#/dave20477</a></p>
+
+<p>… will initiate a slideshow that lets you view all the public photos published by “dave20477” .</p>
+
+<p>and clicking on this link …</p>
+
+<p><a href="https://dc25.github.io/askMetaGallery/#/dave20477/album_for_metafilter">https://dc25.github.io/askMetaGallery/#/dave20477/album_for_metafilter</a></p>
+
+<p>… will initiate a slideshow that lets you view all the public photos in the album “album_for_metafilter” belonging to “dave20477”</p>
+
+<p>The content produced by these pages is intended to work well with html inlining so these slideshows can be embedded in a web page as shown below.</p>
+
+<iframe width="850" height="650" src="//dc25.github.io/askMetaGallery/#/dave20477/" frameborder="0" allowfullscreen=""></iframe>
+
+<p>The source code for this web-app is <a href="https://github.com/dc25/askMetaGallery">published on github</a>.</p>
+
+
+  </div><a class="u-url" href="/2017/09/06/a-flickr-slideshow-with-help-from-elm.html" hidden></a>
+</article>
+
+      </div>
+    </main>
+
+    <div class="page-content">
+      <div class="wrapper">
+        
+    
+<div id="gh-comments">
+    <br/><br/>
+    <h6>COMMENTS</h6>
+    <div id="gh-comments-list"></div>
+</div>
+
+<script src="/js/github-comments.js"> </script>
+
+<script type="text/javascript"> 
+    DoGithubComments ( 
+        "dc25/myBlog-comments" , 
+        "4" 
+    ); 
+</script>
+
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+
+
+      </div>
+    </div><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <path d="M12.8 16C12.8 8.978 7.022 3.2 0 3.2V0c8.777 0 16 7.223 16 16h-3.2zM2.194
+                11.61c1.21 0 2.195.985 2.195 2.196 0 1.21-.99 2.194-2.2 2.194C.98 16 0 15.017 0
+                13.806c0-1.21.983-2.195 2.194-2.195zM10.606
+                16h-3.11c0-4.113-3.383-7.497-7.496-7.497v-3.11c5.818 0 10.606 4.79 10.606 10.607z"
+              />
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+        <ul class="contact-list">
+          <li><a class="u-email" href="mailto:davecompton7@gmail.com">davecompton7@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>What I am doing, what I have done, and what I learned along the way.
+</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+<!-- Default Statcounter code for Davecompton.net
+https://davecompton.net -->
+<script type="text/javascript">
+var sc_project=11610177; 
+var sc_invisible=1; 
+var sc_security="d324e394"; 
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="real time web
+analytics" href="https://statcounter.com/"
+target="_blank"><img class="statcounter"
+src="https://c.statcounter.com/11610177/0/d324e394/1/"
+alt="real time web analytics"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+</body>
+
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>A beginners guide to creating a github based blog. Part 1 | Dave Compton</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="A beginners guide to creating a github based blog. Part 1" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This blog is hosted on github and created using the jekyll preprocessor. In this blog post I’m going to outline how to create a blog like this one. It took me a couple of iterations to get things right and I’m hoping to save others some of the trouble that I ran into." />
+<meta property="og:description" content="This blog is hosted on github and created using the jekyll preprocessor. In this blog post I’m going to outline how to create a blog like this one. It took me a couple of iterations to get things right and I’m hoping to save others some of the trouble that I ran into." />
+<meta property="og:site_name" content="Dave Compton" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2015-05-03T16:25:00-07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="A beginners guide to creating a github based blog. Part 1" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2015-05-03T16:25:00-07:00","datePublished":"2015-05-03T16:25:00-07:00","description":"This blog is hosted on github and created using the jekyll preprocessor. In this blog post I’m going to outline how to create a blog like this one. It took me a couple of iterations to get things right and I’m hoping to save others some of the trouble that I ran into.","headline":"A beginners guide to creating a github based blog. Part 1","mainEntityOfPage":{"@type":"WebPage","@id":"/jekyll/github/blog/2015/05/03/creating-a-github-based-blog-using-jekyll.html"},"url":"/jekyll/github/blog/2015/05/03/creating-a-github-based-blog-using-jekyll.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Dave Compton" />
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Dave Compton</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">A beginners guide to creating a github based blog. Part 1</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2015-05-03T16:25:00-07:00" itemprop="datePublished">
+        May 3, 2015
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>This blog is hosted on github and created using the jekyll preprocessor. In this blog post I’m going to outline how to create a blog like this one.  It took me a couple of iterations to get things right and I’m hoping to save others some of the trouble that I ran into.</p>
+
+<p>In this post I try to err on the side of too much information.  My goal is to cover details that might seem obvious to someone more experienced but were not obvious to me last week.  I’m sure I also have glossed over some things - please let me know.</p>
+
+<p>The process described here requires a github account so if you don’t have one, set one up now.</p>
+
+<p>This blog post is the first of three and will cover the use of jekyll to create a blog and github to publish the blog.  Later posts will cover adding the ability to comment on the blog and the use of bootstrap to format the blog.</p>
+
+<p>All the work that I do here is done in a docker container that is running Ubuntu 14.04 .  Using docker has several benefits:</p>
+
+<ul>
+  <li>It isolates this work from my normal working environment.</li>
+  <li>It gives me confidence that the process described here does not rely on tools that I had previously installed.</li>
+  <li>If you are a Windows user you can install Docker and the process described here should still work.</li>
+</ul>
+
+<p>Of course, if you are using Linux, you should be able to go through this process in a regular shell, without using Docker, if you choose.</p>
+
+<h3 id="run-ubuntu-inside-of-docker">Run Ubuntu inside of Docker</h3>
+
+<p>You should be able to install docker either on Linux or on Windows.  After installing docker type :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo docker pull ubuntu:trusty    
+sudo docker run -t -i ubuntu /bin/bash    
+</code></pre></div></div>
+
+<p>On windows you will not need the leading “sudo” in the above commands.</p>
+
+<p>You should now see a docker command prompt.</p>
+
+<h3 id="install-the-necessary-software">Install the necessary software.</h3>
+
+<p>Most of what you need is available from apt-get</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get update      
+apt-get upgrade    
+apt-get install -y make ruby2.0 ruby2.0-dev g++ git nodejs-legacy npm python    
+</code></pre></div></div>
+
+<p>Unfortunately, in addition to ruby2.0, an older version of ruby is installed and becomes the default.  To fix this, run these commands:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rm /usr/bin/ruby /usr/bin/gem /usr/bin/irb /usr/bin/rdoc /usr/bin/erb    
+ln -s /usr/bin/ruby2.0 /usr/bin/ruby    
+ln -s /usr/bin/gem2.0 /usr/bin/gem    
+ln -s /usr/bin/irb2.0 /usr/bin/irb    
+ln -s /usr/bin/rdoc2.0 /usr/bin/rdoc    
+ln -s /usr/bin/erb2.0 /usr/bin/erb    
+gem update --system    
+gem pristine --all    
+</code></pre></div></div>
+
+<p>Thanks to Victor Costan who suggested these commands in <a href="http://blog.costan.us/2014/04/restoring-ruby-20-on-ubuntu-1404.html">this blog post</a>.</p>
+
+<p>Use gem to get jekyll and bundler:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem install jekyll    
+gem install bundler    
+</code></pre></div></div>
+
+<h3 id="set-up-git">Set up git</h3>
+
+<p>First, add the appropriate global config:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config --global user.email "you@you.com"         
+git config --global user.name "Your Name"         
+</code></pre></div></div>
+
+<p>Next, create a public private key pair:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh-keygen     
+</code></pre></div></div>
+
+<p>Use copy and paste to add the public key to your github collection of keys .</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat $HOME/.ssh/id_rsa.pub    
+</code></pre></div></div>
+
+<p>(Log in to github.com, go to “settings/SSH keys” and add the contents of id_rsa.pub as one of your SSH keys.)</p>
+
+<h3 id="use-jekyll-to-set-up-your-blog">Use jekyll to set up your blog</h3>
+
+<p>I did my work in a directory called /repos :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /            
+mkdir repos            
+cd repos            
+jekyll new sampleBlog            
+cd sampleBlog            
+</code></pre></div></div>
+
+<p>In the sample directory create a Gemfile with the content suggested in the <a href="http://jekyllrb.com/docs/github-pages/">jekyll documents</a>.`</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat &gt; Gemfile &lt;&lt; EOF
+source 'https://rubygems.org'
+
+require 'json'
+require 'open-uri'
+versions = JSON.parse(open('https://pages.github.com/versions.json').read)
+
+gem 'github-pages', versions['github-pages']
+EOF
+</code></pre></div></div>
+
+<p>Then run “bundle install” to get the remainder of tools that you need for this installation.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle install
+</code></pre></div></div>
+
+<h3 id="use-your-browser-to-view-a-local-copy-of-the-blog">Use your browser to view a local copy of the blog.</h3>
+
+<p>At this point you should be able to view your blog.  First, use ifconfig to identify an ip address that the web page will be served at:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@26f39a1a31ba:/repos/sampleBlog# ifconfig -a
+eth0      Link encap:Ethernet  HWaddr fe:86:9e:8a:71:f4  
+          inet addr:172.17.0.51  Bcast:0.0.0.0  Mask:255.255.0.0
+          inet6 addr: fe80::fc86:9eff:fe8a:71f4/64 Scope:Link
+          UP BROADCAST RUNNING  MTU:1500  Metric:1
+          RX packets:54031 errors:0 dropped:2 overruns:0 frame:0
+          TX packets:28455 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:75917347 (75.9 MB)  TX bytes:2352060 (2.3 MB)
+</code></pre></div></div>
+
+<p>In this case, for example, the ip address of interest isbundle to run jekyll to  172.17.0.51 .  Knowing this, you can use serve the web page as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@26f39a1a31ba:/repos/sampleBlog# bundle exec jekyll serve -H 0.0.0.0 --baseurl ""
+Configuration file: /repos/sampleBlog/_config.yml
+            Source: /repos/sampleBlog
+       Destination: /repos/sampleBlog/_site
+      Generating... 
+                    done.
+ Auto-regeneration: enabled for '/repos/sampleBlog'
+Configuration file: /repos/sampleBlog/_config.yml
+    Server address: http://0.0.0.0:4000/
+  Server running... press ctrl-c to stop.
+</code></pre></div></div>
+
+<p>And now see it in your browser under the address http://172.17.0.51:4000 ( after changing the ip value to reflect the output from the ifconfig command above ).</p>
+
+<p>You should see something like this in your browser:</p>
+
+<p><img style="border-style: solid" src="/assets/default-jekyll-blog.png" /></p>
+
+<p>So far the content is generic but that will be easy to change later on.</p>
+
+<h3 id="publish-to-githubcom">Publish to github.com</h3>
+
+<p>Now, in your local directory ( /repos/sampleBlog in my case) initialize a local git repository and check in the blog as it stands. Use “git init”, “git add .”, and “git commit -m <message>" for this.</message></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@26f39a1a31ba:/repos/sampleBlog# git init 
+Initialized empty Git repository in /repos/sampleBlog/.git/
+
+root@26f39a1a31ba:/repos/sampleBlog# git add .
+
+root@26f39a1a31ba:/repos/sampleBlog# git commit -m 'as created by jekyll'
+[master (root-commit) 3511a9f] as created by jekyll
+ 18 files changed, 941 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 Gemfile
+ create mode 100644 Gemfile.lock
+ create mode 100644 _config.yml
+ create mode 100644 _includes/footer.html
+ create mode 100644 _includes/head.html
+ create mode 100644 _includes/header.html
+ create mode 100644 _layouts/default.html
+ create mode 100644 _layouts/page.html
+ create mode 100644 _layouts/post.html
+ create mode 100644 _posts/2015-05-04-welcome-to-jekyll.markdown
+ create mode 100644 _sass/_base.scss
+ create mode 100644 _sass/_layout.scss
+ create mode 100644 _sass/_syntax-highlighting.scss
+ create mode 100644 about.md
+ create mode 100755 css/main.scss
+ create mode 100644 feed.xml
+ create mode 100644 index.html
+</code></pre></div></div>
+
+<p>At this point you should be able to add the content to github.com .  Log in to github.com and create a new repository with the appropriate name.</p>
+
+<p><img style="border-style: solid" src="/assets/createSampleBlog.png" /></p>
+
+<p>Take note of the instructions provided for pushing your existing repository to github.</p>
+
+<p><img style="border-style: solid" src="/assets/createSampleBlog2b.png" /></p>
+
+<p>Now you can use the above instructions to push your blog to github.  For this to work, you will need to have added your public ssh id to github earlier.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@26f39a1a31ba:/repos/sampleBlog# git remote add origin git@github.com:dc25/sampleBlog.git
+root@26f39a1a31ba:/repos/sampleBlog# git push -u origin master
+The authenticity of host 'github.com (192.30.252.131)' can't be established.
+RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'github.com,192.30.252.131' (RSA) to the list of known hosts.
+Counting objects: 25, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (23/23), done.
+Writing objects: 100% (25/25), 9.73 KiB | 0 bytes/s, done.
+Total 25 (delta 1), reused 0 (delta 0)
+To git@github.com:dc25/sampleBlog.git
+ * [new branch]      master -&gt; master
+Branch master set up to track remote branch master from origin.
+root@26f39a1a31ba:/repos/sampleBlog# 
+</code></pre></div></div>
+
+<p>For the blog to be displayed the content needs to be published on a branch called gh-pages.  An easy way to make this happen is to create the gh-pages branch locally and push it to the github server.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@26f39a1a31ba:/repos/sampleBlog# git checkout -b gh-pages
+Switched to a new branch 'gh-pages'
+root@26f39a1a31ba:/repos/sampleBlog# git push origin gh-pages
+Warning: Permanently added the RSA host key for IP address '192.30.252.130' to the list of known hosts.
+Total 0 (delta 0), reused 0 (delta 0)
+To git@github.com:dc25/sampleBlog.git
+ * [new branch]      gh-pages -&gt; gh-pages
+</code></pre></div></div>
+
+<p>From here on all of your editing can be done in the gh-pages branch.</p>
+
+<p>At this point you can see your published page but it will not look right.</p>
+
+<p><img style="border-style: solid" src="/assets/badRendering.png" /></p>
+
+<p>The three large horizontal black bars are actually the “hamburger” icon that sometimes appears in the upper right corner of the screen.  The reason they are being scaled incorrectly is that the css files that describe how to render them are being looked for in the wrong place.</p>
+
+<p>To fix this you will need to edit “_config.yml” .  This file contains two variables, “url” and “baseurl”, that get combined to specify the prefix that is part of the absolute pathnames in the html for your site.  Follow the example below to set “url” to “(your github id).github.io” and “baseurl” to “/(blog repository name)/”</p>
+
+<p>_config.yml (unchanged):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Site settings
+title: Your awesome title
+email: your-email@domain.com
+description: &gt; # this means to ignore newlines until "baseurl:"
+  Write an awesome description for your new site here. You can edit this
+  line in _config.yml. It will appear in your document head meta (for
+  Google search results) and in your feed.xml site description.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://yourdomain.com" # the base hostname &amp; protocol for your site
+twitter_username: jekyllrb
+github_username:  jekyll
+
+# Build settings
+markdown: kramdown
+</code></pre></div></div>
+
+<p>_config.yml with url set for my github id (dc25) and baseurl set for this blog (sampleBlog)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Site settings
+title: Your awesome title
+email: your-email@domain.com
+description: &gt; # this means to ignore newlines until "baseurl:"
+  Write an awesome description for your new site here. You can edit this
+  line in _config.yml. It will appear in your document head meta (for
+  Google search results) and in your feed.xml site description.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://yourdomain.com" # the base hostname &amp; protocol for your site
+twitter_username: jekyllrb
+github_username:  jekyll
+
+# Build settings
+markdown: kramdown
+</code></pre></div></div>
+
+<p>Most of the other fields in this file will also need to be changed but those can wait until later.  Changing these two variables is required now to get the site to render correctly.</p>
+
+<p>Use the following commands to check in and push out these changes:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git diff
+git add .
+git commit -m 'fixed baseurl and url'
+git push origin gh-pages
+</code></pre></div></div>
+
+<p>The result is shown in the transcript below.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@e0fe9b843451:/repos/sampleBlog# git diff
+diff --git a/_config.yml b/_config.yml
+index 2f03e74..27ae743 100644
+--- a/_config.yml
++++ b/_config.yml
+@@ -5,8 +5,8 @@ description: &gt; # this means to ignore newlines until "baseurl:"
+   Write an awesome description for your new site here. You can edit this
+   line in _config.yml. It will appear in your document head meta (for
+   Google search results) and in your feed.xml site description.
+-baseurl: "" # the subpath of your site, e.g. /blog/
+-url: "http://yourdomain.com" # the base hostname &amp; protocol for your site
++baseurl: "/sampleBlog" # the subpath of your site, e.g. /blog/
++url: "http://dc25.github.io" # the base hostname &amp; protocol for your site
+ twitter_username: jekyllrb
+ github_username:  jekyll
+ 
+root@e0fe9b843451:/repos/sampleBlog# git add .
+root@e0fe9b843451:/repos/sampleBlog# git commit -m 'fixed baseurl and url'
+[gh-pages 365b76f] fixed baseurl and url
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+root@e0fe9b843451:/repos/sampleBlog# git push origin gh-pages
+Warning: Permanently added the RSA host key for IP address '192.30.252.129' to the list of known hosts.
+Counting objects: 5, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 328 bytes | 0 bytes/s, done.
+Total 3 (delta 2), reused 0 (delta 0)
+To git@github.com:dc25/sampleBlog.git
+   3511a9f..365b76f  gh-pages -&gt; gh-pages
+root@e0fe9b843451:/repos/sampleBlog# 
+</code></pre></div></div>
+
+<p>Once these changes are made the blog will be published and rendered correctly.</p>
+
+<p><img style="border-style: solid" src="/assets/goodRendering.png" /></p>
+
+<h3 id="customize-the-blog">Customize the blog</h3>
+
+<p>As it stands the blog content is still just generic content created by jekyll.</p>
+
+<p>There are several different aspects of the blog that can be easily personalized:</p>
+
+<ul>
+  <li>Configuration ( _config.yml )</li>
+  <li>Pages ( about.md for example )</li>
+  <li>Posts ( _posts/*.markdown )</li>
+</ul>
+
+<h4 id="configuration">Configuration</h4>
+
+<p>Much of what you see on the front page is set in _config.yml.  This includes</p>
+
+<ul>
+  <li>The blog title</li>
+  <li>The blog description</li>
+  <li>Your e-mail</li>
+  <li>Your github id</li>
+  <li>Your twitter id</li>
+</ul>
+
+<p>If you set these things appropriately you will have come a long way towards customizing your blog.</p>
+
+<h4 id="pages">Pages</h4>
+
+<p>In the top level of your blog is a file called about.md .  This is an example of a page.  When your blog is rendered, links to all the pages appear on the bar at the top of the blog.  Clicking on one of these links makes the page content appear on the front of the blog.  To create more pages, copy about.md to another file with the same suffix (.md) and edit that file as needed.  The new file will automatically appear on the top bar along with about.md</p>
+
+<h4 id="posts">Posts</h4>
+
+<p>The default primary content on the main page of your blog is a post: “Welcome to Jekyll!!”  .  This content for this post is a stored in a lone .markdown file called “2015-05-04-welcome-to-jekyll.markdown” in the _posts directory of your repository.  If you copy this file to an appropriately named file in the _posts directory that file will also appear as a post.  Use the same date-based naming scheme for new posts that you create.</p>
+
+<h3 id="copy-the-sampleblog">Copy the sampleBlog</h3>
+<p>If you don’t want to go through the steps outlined above, the example, “sampleBlog”, is available to copy.  The gh-pages branch will change as development of ths sample progresses but you can use the branch “gh-pages–jekyll-new” to copy just what has been done to this point.  Once you do this, you will need to change the _config.yml file as shown above but other than that, the blog should be usable.</p>
+
+<h4 id="the-commands">The commands</h4>
+
+<p>Use the following commands to clone the example (“sampleBlog”)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/dc25/sampleBlog.git
+cd sampleBlog/
+git fetch origin gh-pages--jekyll-new
+git checkout gh-pages--jekyll-new
+git branch gh-pages
+git checkout gh-pages
+</code></pre></div></div>
+
+<p>The output should look something like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(p1)dave@peach:/home/dave/repos/gitnc$ git clone https://github.com/dc25/sampleBlog.git
+Cloning into 'sampleBlog'...
+remote: Counting objects: 31, done.
+remote: Compressing objects: 100% (26/26), done.
+remote: Total 31 (delta 5), reused 29 (delta 3), pack-reused 0
+Unpacking objects: 100% (31/31), done.
+Checking connectivity... done.
+(p1)dave@peach:/home/dave/repos/gitnc$ cd sampleBlog/
+(p1)dave@peach:/home/dave/repos/gitnc/sampleBlog$ git fetch origin gh-pages--jekyll-new
+From https://github.com/dc25/sampleBlog
+ * branch            gh-pages--jekyll-new -&gt; FETCH_HEAD
+(p1)dave@peach:/home/dave/repos/gitnc/sampleBlog$ git checkout gh-pages--jekyll-new
+Branch gh-pages--jekyll-new set up to track remote branch gh-pages--jekyll-new from origin.
+Switched to a new branch 'gh-pages--jekyll-new'
+(p1)dave@peach:/home/dave/repos/gitnc/sampleBlog$ git branch gh-pages
+(p1)dave@peach:/home/dave/repos/gitnc/sampleBlog$ git checkout !$
+git checkout gh-pages
+Switched to branch 'gh-pages'
+(p1)dave@peach:/home/dave/repos/gitnc/sampleBlog$ 
+</code></pre></div></div>
+
+<p>Once you have done this, you should be able to create a new github repository and push your local copy of sampleBlog to that repository.  Once you push the gh-pages branch you should see the content published online.</p>
+
+
+  </div><a class="u-url" href="/jekyll/github/blog/2015/05/03/creating-a-github-based-blog-using-jekyll.html" hidden></a>
+</article>
+
+      </div>
+    </main>
+
+    <div class="page-content">
+      <div class="wrapper">
+        
+
+      </div>
+    </div><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <path d="M12.8 16C12.8 8.978 7.022 3.2 0 3.2V0c8.777 0 16 7.223 16 16h-3.2zM2.194
+                11.61c1.21 0 2.195.985 2.195 2.196 0 1.21-.99 2.194-2.2 2.194C.98 16 0 15.017 0
+                13.806c0-1.21.983-2.195 2.194-2.195zM10.606
+                16h-3.11c0-4.113-3.383-7.497-7.496-7.497v-3.11c5.818 0 10.606 4.79 10.606 10.607z"
+              />
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+        <ul class="contact-list">
+          <li><a class="u-email" href="mailto:davecompton7@gmail.com">davecompton7@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>What I am doing, what I have done, and what I learned along the way.
+</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+<!-- Default Statcounter code for Davecompton.net
+https://davecompton.net -->
+<script type="text/javascript">
+var sc_project=11610177; 
+var sc_invisible=1; 
+var sc_security="d324e394"; 
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="real time web
+analytics" href="https://statcounter.com/"
+target="_blank"><img class="statcounter"
+src="https://c.statcounter.com/11610177/0/d324e394/1/"
+alt="real time web analytics"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+</body>
+
+</html>

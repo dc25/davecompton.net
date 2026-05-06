@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Haskell: ghc 7.10.2 and ghcjs in Docker | Dave Compton</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Haskell: ghc 7.10.2 and ghcjs in Docker" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Update 2015-11-05 This post is obsolete. See this post for an up-to-date version." />
+<meta property="og:description" content="Update 2015-11-05 This post is obsolete. See this post for an up-to-date version." />
+<meta property="og:site_name" content="Dave Compton" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2015-08-05T14:56:33-07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Haskell: ghc 7.10.2 and ghcjs in Docker" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2015-08-05T14:56:33-07:00","datePublished":"2015-08-05T14:56:33-07:00","description":"Update 2015-11-05 This post is obsolete. See this post for an up-to-date version.","headline":"Haskell: ghc 7.10.2 and ghcjs in Docker","mainEntityOfPage":{"@type":"WebPage","@id":"/haskell/ghcjs/docker/2015/08/05/installing-and-using-ghcjs-in-a-docker-image.html"},"url":"/haskell/ghcjs/docker/2015/08/05/installing-and-using-ghcjs-in-a-docker-image.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Dave Compton" />
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Dave Compton</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Haskell: ghc 7.10.2 and ghcjs in Docker</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2015-08-05T14:56:33-07:00" itemprop="datePublished">
+        Aug 5, 2015
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h1 id="update-2015-11-05">Update 2015-11-05</h1>
+<p>This post is obsolete.  See <a href="/docker/haskell/ghcjs/haste/2015/11/05/building-and-using-ghcjs-and-haste-0.5.2-in-docker.html">this post</a> for an up-to-date version.</p>
+
+<h1 id="summary">Summary:</h1>
+<p>This post explains how to quickly build a ghc 7.10.2 development development environment (including ghcjs) that runs under Docker.  To build and use this development environment you should be running a 64 bit linux version (Windows or OSX might also work using boot2docker but I have not tried either of those).</p>
+
+<h1 id="introduction">Introduction:</h1>
+<p>Last month I started working with ghcjs, a Haskell to Javascript compiler.  At the time I was using ghc 7.6.3, which is too old to be supported by ghcjs.  Not wanting to risk messing up my working Haskell environment, I decided to try using Docker to create a isolated ghcjs workspace.</p>
+
+<p>The eventual result was a Dockerfile (a type of script that can be used to create a Docker image ) that creates a Docker based Haskell working environment.</p>
+
+<p>This has become my default Haskell workspace - not just for ghcjs but for all my Haskell work.</p>
+
+<p>The resulting image is based on Ubuntu 15.04 and contains :</p>
+
+<ul>
+  <li>Languages
+    <ul>
+      <li>ghc 7.10.2  (built from source)</li>
+      <li>ghcjs ( built from source; the most recent as of time of image creation )</li>
+      <li>typescript (via npm)</li>
+    </ul>
+  </li>
+  <li>Haskell development tools
+    <ul>
+      <li>cabal 1.22.6  (built from source)</li>
+      <li>ghc-mod &amp; ghc-modi (built from source)</li>
+      <li>hdevtools (via cabal)</li>
+      <li>ghcid (via cabal)</li>
+      <li>hlint (via cabal)</li>
+      <li>stack (from fpcomplete via apt-get)</li>
+    </ul>
+  </li>
+  <li>Editors
+    <ul>
+      <li>vim (via apt-get; with Haskell related extensions)
+        <ul>
+          <li>pathogen (cloned from github)</li>
+          <li>syntastic (cloned from github)</li>
+          <li>vim-hdevtools (cloned from github)</li>
+          <li>vim2hs (cloned from github)</li>
+        </ul>
+      </li>
+      <li>atom (from atom.io; with Haskell related extensions)
+        <ul>
+          <li>language-haskell  (via apm)</li>
+          <li>haskell-ghc-mod  (via apm)</li>
+          <li>ide-haskell  (via apm)</li>
+          <li>autocomplete-haskell`(via apm)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Miscelaneous
+    <ul>
+      <li>sshd (via apt-get)</li>
+      <li>tmux (via apt-get)</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="building">Building:</h1>
+<p>To build this image, you will need to first <a href="https://docs.docker.com/installation/">install docker</a> version 1.7 or later.</p>
+
+<p>After installing Docker, clone the git repository holding the Dockerfile and related build scripts.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/dc25/dockerfile_for_haskell.git
+</code></pre></div></div>
+
+<p>If you don’t already have a public/private ssh key pair, generate one now as <a href="https://help.github.com/articles/generating-ssh-keys/">described here</a></p>
+
+<p>Edit the file called “personalize” in the cloned git repository.  Replace the existing public key with your own.  Also in this file, add any shell aliases and custom vim setup that you want to use in the Docker image.</p>
+
+<p>From inside the repository, run Docker to build your image:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo docker build -t ghc_710 .
+</code></pre></div></div>
+
+<p>On my computer this takes about 2 hours and creates a Docker image called ghc_710.</p>
+
+<h1 id="running">Running:</h1>
+
+<p>Enter the following bash command to run the newly created image with access to a limited collection of files on the host machine:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo docker run -v &lt;host directory&gt;:&lt;container directory&gt; ghc_710 
+</code></pre></div></div>
+
+<p>For example, I organize my projects in a common directory and mount that entire folder in the Docker container.  This makes individual projects accessible in the Docker container with the same directory name that they have on the host machine:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo docker run -v /home/dave/repos:/repos ghc_710 
+</code></pre></div></div>
+
+<p>You can use ssh to get shell access to the running Docker container.  Use the following command to get the ip address of the container:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo docker ps -q | xargs sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}'
+</code></pre></div></div>
+
+<p>Once you have the ip address, ssh in to the container as shown below:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh -l root &lt;ipAddress&gt; -X -t tmux
+</code></pre></div></div>
+
+<h1 id="using-tmux">Using tmux</h1>
+
+<p>Once you log in, you will be running tmux, a terminal based window manager.  At first you can just disregard tmux but at some point you will want to work with multiple shells.  This is where tmux comes in handy.</p>
+
+<p>To manage multiple bash shells, I generally make the terminal that I’m using full screen and then use tmux commands to split the window into multiple panes and navigate from one pane to another.  The following tmux commands should be enough to get started:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Keystrokes —&gt;</th>
+      <th style="text-align: left">Effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">^b %</td>
+      <td style="text-align: left">split screen vertically</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">^b “</td>
+      <td style="text-align: left">split screen horizontally</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">^b o</td>
+      <td style="text-align: left">move to next pane</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>I’ve found <a href="http://www.mechanicalkeys.com/files/os/notes/tm.html">this tmux cheatsheet</a> to be pretty useful.</p>
+
+<h1 id="feedback">Feedback</h1>
+
+<p>If you made it this far, thank you for reading my post.  If you have any feedback please don’t hesitate to let me know.</p>
+
+<p>- Dave</p>
+
+
+  </div><a class="u-url" href="/haskell/ghcjs/docker/2015/08/05/installing-and-using-ghcjs-in-a-docker-image.html" hidden></a>
+</article>
+
+      </div>
+    </main>
+
+    <div class="page-content">
+      <div class="wrapper">
+        
+
+      </div>
+    </div><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <path d="M12.8 16C12.8 8.978 7.022 3.2 0 3.2V0c8.777 0 16 7.223 16 16h-3.2zM2.194
+                11.61c1.21 0 2.195.985 2.195 2.196 0 1.21-.99 2.194-2.2 2.194C.98 16 0 15.017 0
+                13.806c0-1.21.983-2.195 2.194-2.195zM10.606
+                16h-3.11c0-4.113-3.383-7.497-7.496-7.497v-3.11c5.818 0 10.606 4.79 10.606 10.607z"
+              />
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+        <ul class="contact-list">
+          <li><a class="u-email" href="mailto:davecompton7@gmail.com">davecompton7@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>What I am doing, what I have done, and what I learned along the way.
+</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+<!-- Default Statcounter code for Davecompton.net
+https://davecompton.net -->
+<script type="text/javascript">
+var sc_project=11610177; 
+var sc_invisible=1; 
+var sc_security="d324e394"; 
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="real time web
+analytics" href="https://statcounter.com/"
+target="_blank"><img class="statcounter"
+src="https://c.statcounter.com/11610177/0/d324e394/1/"
+alt="real time web analytics"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+</body>
+
+</html>
