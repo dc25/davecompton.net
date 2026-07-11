@@ -53,6 +53,10 @@
   <div class="post-content e-content" itemprop="articleBody">
     <p>This post is a simplified version of <a href="https://davecompton.net/2018/12/13/building-jekyll-site-locally-to-be-displayed-on-github.html">a post from 2018</a>.</p>
 
+<p>The two posts accomplish the same thing but the steps in the earlier post, worked with the repository containing the jekyll source.  The steps in this post work by creating an additional local repository in the _site directory that contains the content to be published.</p>
+
+<hr />
+
 <p>If you publish a Jekyll based website on Github they will do the Jekyll compile for you.  This is easy and quick to set up but here are some reasons you may want to build on your local machine and push the results up to Github:</p>
 
 <ul>
@@ -77,7 +81,7 @@ cd _site/
 # -- Set up a git repository for this directory ( if not already done )
 git init 
 git branch -m gh-pages
-git remote add ghp git@github.com:dc25/davecompton.net
+git remote add ghp git@github.com:dc25/davecompton.net # of course, use your own remote repo 
 
 # -- add, commit, and push _site contents to gh-pages branch.
 
