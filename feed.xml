@@ -1,5 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2026-07-11T14:15:25-07:00</updated><id>/feed.xml</id><title type="html">Dave Compton</title><subtitle>What I am doing, what I have done, and what I learned along the way.
-</subtitle><author><name>{&quot;email&quot;=&gt;&quot;davecompton7@gmail.com&quot;}</name><email>davecompton7@gmail.com</email></author><entry><title type="html">Build Jekyll site locally; serve on Github (v2)</title><link href="/2026/07/11/build-jekyll-site-locally-serve-on-github-v2.html" rel="alternate" type="text/html" title="Build Jekyll site locally; serve on Github (v2)" /><published>2026-07-11T13:41:17-07:00</published><updated>2026-07-11T13:41:17-07:00</updated><id>/2026/07/11/build-jekyll-site-locally--serve-on-github--v2-</id><content type="html" xml:base="/2026/07/11/build-jekyll-site-locally-serve-on-github-v2.html"><![CDATA[<p>If you publish a Jekyll based website on Github they will do the Jekyll compile for you.  This is easy and quick to set up but here are some reasons you may want to build on your local machine and push the results up to Github:</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2026-07-11T14:27:45-07:00</updated><id>/feed.xml</id><title type="html">Dave Compton</title><subtitle>What I am doing, what I have done, and what I learned along the way.
+</subtitle><author><name>{&quot;email&quot;=&gt;&quot;davecompton7@gmail.com&quot;}</name><email>davecompton7@gmail.com</email></author><entry><title type="html">Build Jekyll site locally; serve on Github (v2)</title><link href="/2026/07/11/build-jekyll-site-locally-serve-on-github-v2.html" rel="alternate" type="text/html" title="Build Jekyll site locally; serve on Github (v2)" /><published>2026-07-11T13:41:17-07:00</published><updated>2026-07-11T13:41:17-07:00</updated><id>/2026/07/11/build-jekyll-site-locally--serve-on-github--v2-</id><content type="html" xml:base="/2026/07/11/build-jekyll-site-locally-serve-on-github-v2.html"><![CDATA[<p>This post is a simplified version of <a href="https://davecompton.net/2018/12/13/building-jekyll-site-locally-to-be-displayed-on-github.html">a post from 2018</a>.</p>
+
+<p>If you publish a Jekyll based website on Github they will do the Jekyll compile for you.  This is easy and quick to set up but here are some reasons you may want to build on your local machine and push the results up to Github:</p>
 
 <ul>
   <li>Github only supports a limited number of Jekyll plugins.  If you use any plugins outside of that set then you must build locally and push the result.</li>
@@ -17,23 +19,22 @@
 # -- Build with no baseurl
 bundle exec jekyll build 
 
-
-# -- Switch to working in the _site directory
+# -- Switch to the _site directory
 cd _site/
 
-# -- Create a git repository for this directory ( if not already present )
+# -- Set up a git repository for this directory ( if not already done )
 git init 
-
-# -- Create a new gh-pages branch (if not already present)
 git branch -m gh-pages
+git remote add ghp git@github.com:dc25/davecompton.net
 
 # -- add, commit, and push _site contents to gh-pages branch.
 
 git add .
 git commit -m 'adding site to be pushed to gh-pages'
-git remote add ghp git@github.com:dc25/davecompton.net
 git push -f ghp gh-pages
-</code></pre></div></div>]]></content><author><name>{&quot;email&quot;=&gt;&quot;davecompton7@gmail.com&quot;}</name><email>davecompton7@gmail.com</email></author><summary type="html"><![CDATA[If you publish a Jekyll based website on Github they will do the Jekyll compile for you. This is easy and quick to set up but here are some reasons you may want to build on your local machine and push the results up to Github:]]></summary></entry><entry><title type="html">VMware Shared Folders — Persistent Mount Setup</title><link href="/2026/05/06/vmware-shared-folders-persistent-mount-setup.html" rel="alternate" type="text/html" title="VMware Shared Folders — Persistent Mount Setup" /><published>2026-05-06T10:38:13-07:00</published><updated>2026-05-06T10:38:13-07:00</updated><id>/2026/05/06/vmware-shared-folders---persistent-mount-setup</id><content type="html" xml:base="/2026/05/06/vmware-shared-folders-persistent-mount-setup.html"><![CDATA[<p>Enables automatic mounting of VMware shared folders at <code class="language-plaintext highlighter-rouge">/mnt/hgfs</code> on an Ubuntu guest.</p>
+</code></pre></div></div>
+
+<p>After pushing to gh-pages, github will unset any custom domain name you might have specified.   Just re-enter and save it if needed.</p>]]></content><author><name>{&quot;email&quot;=&gt;&quot;davecompton7@gmail.com&quot;}</name><email>davecompton7@gmail.com</email></author><summary type="html"><![CDATA[This post is a simplified version of a post from 2018.]]></summary></entry><entry><title type="html">VMware Shared Folders — Persistent Mount Setup</title><link href="/2026/05/06/vmware-shared-folders-persistent-mount-setup.html" rel="alternate" type="text/html" title="VMware Shared Folders — Persistent Mount Setup" /><published>2026-05-06T10:38:13-07:00</published><updated>2026-05-06T10:38:13-07:00</updated><id>/2026/05/06/vmware-shared-folders---persistent-mount-setup</id><content type="html" xml:base="/2026/05/06/vmware-shared-folders-persistent-mount-setup.html"><![CDATA[<p>Enables automatic mounting of VMware shared folders at <code class="language-plaintext highlighter-rouge">/mnt/hgfs</code> on an Ubuntu guest.</p>
 
 <p>This post and the technique described here are thanks to claude.ai .</p>
 
